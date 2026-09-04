@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title="Privacidad" description={`Política de privacidad de ${site.legalName}.`}>
+  <article class="prose-br mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="text-sm font-medium text-secondary">Legal</p>
+    <h1 class="mt-2 font-display text-4xl font-semibold text-primary">Privacidad</h1>
+    <p>
+      Responsable: {site.legalName} ({site.cif}). Finalidad: gestionar solicitudes de presupuesto,
+      urgencias y contacto comercial. Base jurídica: consentimiento y medidas precontractuales.
+    </p>
+    <h2>Datos que tratamos</h2>
+    <p>
+      Nombre, teléfono, email, zona y descripción de la incidencia que nos envías por formulario,
+      WhatsApp o llamada. No se ceden a terceros salvo prestadores técnicos necesarios (hosting,
+      correo) o obligación legal.
+    </p>
+    <h2>Conservación y derechos</h2>
+    <p>
+      Conservamos los datos el tiempo necesario para atender el servicio y las obligaciones
+      legales. Puedes ejercer acceso, rectificación, supresión, oposición y limitación en
+      <a href={`mailto:${site.email}`}>{site.email}</a>. También puedes reclamar ante la AEPD.
+    </p>
+  </article>
+</BaseLayout>

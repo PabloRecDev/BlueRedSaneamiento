@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { mapsEmbedSrc, mapsHref, site, telHref, whatsappHref } from '../lib/site';
+---
+
+<BaseLayout
+  title="Contacto y urgencias 24h"
+  description="Contacta con Blue Red Saneamientos en Madrid: teléfono 91 705 65 15, WhatsApp 24h o formulario para inspección y presupuesto."
+>
+  <section class="mx-auto grid max-w-6xl gap-10 px-4 pt-14 pb-20 sm:px-6 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <p class="text-sm font-medium text-secondary">Contacto</p>
+      <h1 class="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
+        Habla con el equipo
+      </h1>
+      <p class="mt-4 leading-relaxed text-base-content/70">
+        Urgencia, inspección o mantenimiento. Si hay agua en el suelo, llama. Si puedes esperar
+        un poco, déjanos el mensaje y te devolvemos el aviso.
+      </p>
+
+      <ul class="mt-8 space-y-5">
+        <li>
+          <p class="text-sm text-base-content/55">Teléfono</p>
+          <a href={telHref} class="font-display text-3xl text-primary">{site.phoneDisplay}</a>
+        </li>
+        <li>
+          <p class="text-sm text-base-content/55">WhatsApp</p>
+          <a href={whatsappHref()} class="link link-secondary">Abrir conversación</a>
+        </li>
+        <li>
+          <p class="text-sm text-base-content/55">Email</p>
+          <a href={`mailto:${site.email}`} class="link">{site.email}</a>
+        </li>
+        <li>
+          <p class="text-sm text-base-content/55">Taller</p>
+          <a href={mapsHref} target="_blank" rel="noreferrer" class="link">
+            {site.address.street}, {site.address.postalCode} {site.address.city}, {site.address.region}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="lg:col-span-7" data-reveal>
+      <ContactForm />
+    </div>
+  </section>
+
+  <section class="page-wrap pb-20">
+    <div class="contact-map" data-reveal>
+      <iframe
+        title={`Taller de Blue Red Saneamientos en ${site.address.street}, ${site.address.city}`}
+        src={mapsEmbedSrc}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <p class="mt-3 text-sm text-base-content/55">
+      <a href={mapsHref} target="_blank" rel="noreferrer" class="link link-primary">
+        Cómo llegar · Google Maps
+      </a>
+    </p>
+  </section>
+</BaseLayout>

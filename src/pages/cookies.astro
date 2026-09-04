@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title="Cookies" description={`Política de cookies de ${site.name}.`}>
+  <article class="prose-br mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="text-sm font-medium text-secondary">Legal</p>
+    <h1 class="mt-2 font-display text-4xl font-semibold text-primary">Cookies</h1>
+    <p>
+      Esta web se sirve desde Vercel y, en su versión actual, no utiliza cookies analíticas ni
+      publicitarias. Solo pueden existir cookies técnicas imprescindibles del propio hosting o
+      del navegador.
+    </p>
+    <p>
+      Si en el futuro se añaden estadísticas, se pedirá consentimiento previo. Puedes configurar
+      las cookies desde tu navegador.
+    </p>
+  </article>
+</BaseLayout>

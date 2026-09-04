@@ -1,0 +1,54 @@
+---
+import { site, telHref } from '../lib/site';
+import HeroForm from './HeroForm.astro';
+import MadridSilhouette from './MadridSilhouette.astro';
+---
+
+<section data-hero class="hero-shell">
+  <div class="hero-panel">
+    <div class="hero-madrid" aria-hidden="true">
+      <MadridSilhouette />
+    </div>
+    <div class="hero-panel-inner">
+      <div class="hero-main">
+        <div class="hero-copy">
+          <p class="hero-kicker" data-hero-item>Urgencias 24h · Leganés, Madrid</p>
+          <h1 class="hero-title" data-hero-item>
+            Reparación de tuberías
+            <span>Sin obra</span>
+          </h1>
+          <p class="hero-line" data-hero-item>
+            Pocería · Inspección TV · Mantenimiento · Obras · Rehabilitación
+          </p>
+          <img
+            class="hero-truck"
+            src="/camion-hero.png"
+            alt="Camión Blue Red de saneamiento"
+            width="975"
+            height="683"
+          />
+          <p class="hero-lead" data-hero-item>
+            Empresa
+            <span class="hero-lider">
+              líder
+              <svg class="hero-lider-ring" viewBox="0 0 86 44" aria-hidden="true">
+                <path
+                  pathLength="1"
+                  d="M42.2 3.6c23.8-1.2 40.6 9.2 39.6 19.8-1.2 12.2-19.6 18.8-40.4 18.4C19.6 41.4 3.4 33.8 4.2 21.2 5 8.2 21.8 4.6 42.2 3.6Z"
+                />
+              </svg>
+            </span>
+            con más de <strong>15 años</strong> de experiencia
+          </p>
+        </div>
+
+        <div class="hero-form-wrap" data-hero-item>
+          <HeroForm />
+          <p class="hero-form-phone">
+            <a href={telHref}>¿Tienes alguna pregunta? {site.phoneDisplay}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

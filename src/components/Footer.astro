@@ -1,0 +1,74 @@
+---
+import { nav, site, telHref, whatsappHref } from '../lib/site';
+import Logo from './Logo.astro';
+---
+
+<footer class="bg-primary text-primary-content">
+  <div class="sponsor-band">
+    <div class="page-wrap sponsor-band-grid">
+      <article>
+        <img
+          src="/2020/06/Club_Deportivo_Leganes_logo.svg"
+          alt="Escudo del Club Deportivo Leganés FS"
+          width="72"
+          height="72"
+        />
+        <div>
+          <strong>Patrocinador Oficial</strong>
+          <p>Club Deportivo Leganés FS</p>
+        </div>
+      </article>
+      <article>
+        <img
+          src="/2020/06/getafe-cf-logo.png"
+          alt="Escudo del Getafe CF"
+          width="72"
+          height="72"
+        />
+        <div>
+          <strong>Patrocinador Oficial</strong>
+          <p>Getafe CF</p>
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="footer mx-auto max-w-6xl px-4 py-14 sm:px-6 md:footer-horizontal">
+    <aside class="max-w-sm">
+      <Logo tone="light" />
+      <p class="mt-4 text-sm leading-relaxed text-primary-content/75">
+        Pocería, inspección con cámara y rehabilitación de tuberías en Madrid. Técnicos propios,
+        respuesta 24 horas y, siempre que se pueda, sin abrir zanja.
+      </p>
+    </aside>
+    <nav>
+      <h2 class="footer-title text-primary-content/60">Web</h2>
+      {nav.map((item) => <a href={item.href} class="link-hover link">{item.label}</a>)}
+    </nav>
+    <nav>
+      <h2 class="footer-title text-primary-content/60">Contacto</h2>
+      <a href={telHref} class="link-hover link">{site.phoneDisplay}</a>
+      <a href={`mailto:${site.email}`} class="link-hover link">{site.email}</a>
+      <a href={whatsappHref()} class="link-hover link">WhatsApp 24h</a>
+      <p class="text-sm text-primary-content/75">
+        {site.address.street}<br />
+        {site.address.city}, {site.address.region}
+      </p>
+    </nav>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 text-xs text-primary-content/60 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p>© {new Date().getFullYear()} {site.legalName} · {site.cif}</p>
+      <p class="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <a href="/aviso-legal" class="link-hover link">Aviso legal</a>
+        <a href="/privacidad" class="link-hover link">Privacidad</a>
+        <a href="/cookies" class="link-hover link">Cookies</a>
+        <span>
+          Desarrollado por
+          <a href="https://www.goprime.digital" class="link-hover link underline" target="_blank" rel="noopener noreferrer">
+            GoPrime
+          </a>
+        </span>
+      </p>
+    </div>
+  </div>
+</footer>

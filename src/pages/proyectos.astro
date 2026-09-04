@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import { gallery } from '../lib/gallery';
+---
+
+<BaseLayout
+  title="Proyectos y trabajos"
+  description="Fotos reales de trabajos Blue Red: inspección TV, desatrancos, rehabilitación sin zanja y obras de pocería en Madrid."
+>
+  <section class="page-wrap pt-14 pb-8">
+    <p class="section-kicker">Proyectos</p>
+    <h1 class="section-title">Trabajos reales</h1>
+    <p class="section-lead mt-4">
+      Fotos de intervenciones, equipos y obras. Si tienes un caso parecido, el presupuesto sale
+      de la visita.
+    </p>
+  </section>
+
+  <section class="page-wrap pb-20">
+    <PhotoGrid items={gallery} />
+  </section>
+  <CTABanner />
+</BaseLayout>

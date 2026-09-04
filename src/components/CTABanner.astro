@@ -1,0 +1,29 @@
+---
+import { site, telHref, whatsappHref } from '../lib/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = '¿Atasco, fuga o bajante? Salimos hoy.',
+  text = 'Técnicos propios en Madrid. Inspección, desatranco o rehabilitación sin zanja. 24 horas, 365 días.',
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="page-wrap flex flex-col gap-7 py-16 sm:py-20 md:flex-row md:items-end md:justify-between">
+    <div data-reveal class="max-w-2xl">
+      <p class="section-kicker">Urgencias 24 horas</p>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row" data-reveal>
+      <a href={telHref} class="btn btn-white">{site.phoneDisplay}</a>
+      <a href={whatsappHref('Hola, quiero una inspección de saneamiento.')} class="btn btn-whatsapp">
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>

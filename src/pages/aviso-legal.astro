@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout title="Aviso legal" description={`Aviso legal de ${site.legalName}.`}>
+  <article class="prose-br mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <p class="text-sm font-medium text-secondary">Legal</p>
+    <h1 class="mt-2 font-display text-4xl font-semibold text-primary">Aviso legal</h1>
+    <p>
+      El titular de este sitio es {site.legalName}, con CIF {site.cif} y domicilio en
+      {site.address.street}, {site.address.city} ({site.address.region}). Contacto:
+      <a href={`mailto:${site.email}`}>{site.email}</a> y {site.phoneDisplay}.
+    </p>
+    <h2>Objeto</h2>
+    <p>
+      Esta web informa sobre los servicios de saneamiento, pocería, inspección y rehabilitación
+      de redes que presta la empresa. Los contenidos tienen carácter informativo y no constituyen
+      una oferta vinculante hasta presupuesto aceptado.
+    </p>
+    <h2>Propiedad intelectual</h2>
+    <p>
+      Los textos, diseño y marca Blue Red son titularidad de la empresa. Queda prohibida su
+      reproducción no autorizada.
+    </p>
+    <h2>Responsabilidad</h2>
+    <p>
+      No garantizamos la ausencia total de errores o interrupciones en el sitio. Los enlaces a
+      terceros se facilitan para conveniencia del usuario.
+    </p>
+  </article>
+</BaseLayout>

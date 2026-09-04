@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+  title="Blog de saneamiento"
+  description="Guías claras sobre desatrancos, inspección con cámara y rehabilitación de tuberías sin obra en Madrid."
+>
+  <section class="mx-auto max-w-6xl px-4 pt-14 pb-8 sm:px-6">
+    <p class="text-sm font-medium text-secondary">Blog</p>
+    <h1 class="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
+      Consejos de saneamiento
+    </h1>
+    <p class="mt-4 max-w-2xl text-base-content/70">
+      Para decidir si llamas ya, si pide cámara o si se puede rehabilitar por dentro.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+    <div class="grid gap-4">
+      {
+        posts.map((post) => (
+          <a
+            href={`/blog/${post.id}`}
+            class="card rounded-md border border-base-300 bg-base-100 shadow-sm transition hover:border-primary/30 hover:shadow-md"
+            data-reveal
+          >
+            <div class="card-body md:flex-row md:items-center md:justify-between">
+              <div>
+                <p class="text-sm text-base-content/50">
+                  {post.data.pubDate.toLocaleDateString('es-ES', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
+                <h2 class="mt-1 font-display text-2xl font-semibold text-primary">{post.data.title}</h2>
+                <p class="mt-2 text-base-content/65">{post.data.description}</p>
+              </div>
+              <p class="mt-3 text-sm font-medium text-secondary md:mt-0">{post.data.minutes} min</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

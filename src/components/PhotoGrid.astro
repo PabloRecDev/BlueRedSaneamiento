@@ -1,0 +1,25 @@
+---
+import type { GalleryItem } from '../lib/gallery';
+
+interface Props {
+  items: GalleryItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="work-grid">
+  {
+    items.map((item) => (
+      <figure class="work-item" data-reveal>
+        <img src={item.src} alt={item.title} width="800" height="600" loading="lazy" />
+        <figcaption>
+          <p>
+            {item.category} · {item.year}
+          </p>
+          <h3>{item.title}</h3>
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>

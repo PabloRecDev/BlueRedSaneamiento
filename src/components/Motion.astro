@@ -1,0 +1,74 @@
+<script>
+  import Lenis from 'lenis';
+  import 'lenis/dist/lenis.css';
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const setHeader = (y = window.scrollY) => {
+    header?.classList.toggle('is-scrolled', y > 8);
+  };
+
+  setHeader();
+  window.addEventListener('scroll', () => setHeader(), { passive: true });
+
+  if (!reduce) {
+    const lenis = new Lenis({ lerp: 0.1 });
+    lenis.on('scroll', (event) => {
+      ScrollTrigger.update();
+      setHeader(event.scroll);
+    });
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
+      gsap.from(el, {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 90%' },
+      });
+    });
+
+    if (document.querySelector('[data-hero]')) {
+      gsap.from('[data-hero-item]', {
+        y: 16,
+        opacity: 0,
+        duration: 0.65,
+        stagger: 0.08,
+        ease: 'power2.out',
+      });
+    }
+  }
+
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  const status = document.querySelector<HTMLElement>('[data-form-status]');
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    status?.classList.remove('hidden');
+    if (status) status.textContent = 'Enviando…';
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: data,
+      });
+      const json = (await response.json()) as { ok?: boolean; href?: string; message?: string };
+      if (json.href) {
+        window.location.href = json.href;
+        return;
+      }
+      if (status) status.textContent = json.message ?? 'Consulta enviada. Te llamamos.';
+      form.reset();
+    } catch {
+      if (status) status.textContent = 'No se pudo enviar. Usa WhatsApp o llama.';
+    }
+  });
+</script>

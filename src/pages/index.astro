@@ -1,0 +1,190 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import Hero from '../components/Hero.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import ServiceTiles from '../components/ServiceTiles.astro';
+import { featured } from '../lib/gallery';
+import { reviews } from '../lib/site';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const process = [
+  {
+    n: '01',
+    title: 'Inspección gratuita',
+    text: 'El técnico se desplaza, ve la incidencia y usa cámara si hace falta.',
+  },
+  {
+    n: '02',
+    title: 'Estudio claro',
+    text: 'Planteamos las opciones posibles, priorizando las de menor impacto.',
+  },
+  {
+    n: '03',
+    title: 'Presupuesto',
+    text: 'Valoras con nosotros: más calidad, menos destrozo, coste cerrado.',
+  },
+  {
+    n: '04',
+    title: 'Financiación',
+    text: 'Si el trabajo lo pide, ajustamos el pago a lo que te encaje.',
+  },
+];
+---
+
+<BaseLayout
+  title="Saneamientos, desatrancos y poceros en Madrid"
+  description="Blue Red Saneamientos: desatrancos 24h, inspección con cámara y rehabilitación de tuberías sin obra en Madrid y el sur metropolitano."
+>
+  <Hero />
+
+  <section class="page-wrap py-10 sm:py-12">
+    <div class="trust-bar" data-reveal>
+      <article>
+        <p>Experiencia</p>
+        <strong>Más de 15 años</strong>
+      </article>
+      <article>
+        <p>Disponibilidad</p>
+        <strong>24h / 365 días</strong>
+      </article>
+      <article>
+        <p>Prioridad</p>
+        <strong>Reparar sin zanja</strong>
+      </article>
+      <article>
+        <p>Zona</p>
+        <strong>Madrid y sur</strong>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="page-wrap py-20 sm:py-24">
+      <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end" data-reveal>
+        <div>
+          <p class="section-kicker">Servicios</p>
+          <h2 class="section-title">Qué podemos hacer</h2>
+        </div>
+        <p class="section-lead">
+          Comunidades, locales y particulares. Si no sabes qué pedir, llámanos: te decimos si va
+          cámara, desatranco o rehabilitación.
+        </p>
+      </div>
+      <ServiceTiles />
+    </div>
+  </section>
+
+  <section class="page-wrap py-20 sm:py-24">
+    <div class="mb-12 max-w-2xl" data-reveal>
+      <p class="section-kicker">Método</p>
+      <h2 class="section-title">Cómo intervenimos</h2>
+    </div>
+    <div class="process-grid">
+      {
+        process.map((step) => (
+          <article data-reveal>
+            <span>{step.n}</span>
+            <h2>{step.title}</h2>
+            <p>{step.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="page-wrap py-20 sm:py-24">
+      <div class="about-split">
+        <div class="about-photo" data-reveal>
+          <img
+            src="/2026/05/Bluered3.jpg"
+            alt="Unidad de Blue Red para trabajos sin obra"
+            width="1200"
+            height="800"
+          />
+        </div>
+        <div data-reveal>
+          <p class="section-kicker">Empresa</p>
+          <h2 class="section-title">Técnicos propios, no un call center</h2>
+          <div class="prose-br mt-6">
+            <p>
+              En Blue Red llevamos más de 15 años en limpieza de tuberías, desatrancos y
+              reparación de averías. Rápido y con el menor destrozo, para que un problema de red
+              no frene tu casa, tu local o tu comunidad.
+            </p>
+            <p>
+              Comercial, técnico y operarios en la misma cadena. Nuestro aval son las obras:
+              inspección, fresado, packer y manga continua cuando se puede evitar la zanja.
+            </p>
+          </div>
+          <a href="/quienes-somos" class="btn btn-outline mt-7">Quiénes somos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-wrap py-20 sm:py-24">
+    <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end" data-reveal>
+      <div>
+        <p class="section-kicker">Trabajos</p>
+        <h2 class="section-title">Galería de obras</h2>
+      </div>
+      <a href="/proyectos" class="btn btn-outline">Ver galería</a>
+    </div>
+    <PhotoGrid items={featured.slice(0, 5)} />
+  </section>
+
+  <section class="bg-white">
+    <div class="page-wrap py-20 sm:py-24">
+      <div class="mb-10 max-w-xl" data-reveal>
+        <p class="section-kicker">Opiniones</p>
+        <h2 class="section-title">Lo que dicen quienes nos llaman</h2>
+      </div>
+      <div class="review-grid">
+        {
+          reviews.slice(0, 4).map((review) => (
+            <blockquote class="review-card" data-reveal>
+              <p>“{review.quote}”</p>
+              <footer>{review.name}</footer>
+            </blockquote>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="page-wrap py-20 sm:py-24">
+    <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end" data-reveal>
+      <div>
+        <p class="section-kicker">Blog</p>
+        <h2 class="section-title">Últimos artículos</h2>
+      </div>
+      <a href="/blog" class="btn btn-outline">Ver blog</a>
+    </div>
+    <div class="blog-grid">
+      {
+        posts.map((post) => (
+          <a href={`/blog/${post.id}`} class="blog-card" data-reveal>
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <span>Leer más</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <CTABanner />
+</BaseLayout>

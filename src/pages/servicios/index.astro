@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTABanner from '../../components/CTABanner.astro';
+
+const services = (await getCollection('servicios')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Servicios de saneamiento y pocería"
+  description="Desatrancos 24h, inspección con cámara, rehabilitación sin obra, limpieza, acometidas y mantenimiento de redes en Madrid."
+>
+  <section class="mx-auto max-w-6xl px-4 pt-14 pb-8 sm:px-6">
+    <p class="text-sm font-medium text-secondary">Servicios</p>
+    <h1 class="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">Qué hacemos</h1>
+    <p class="mt-4 max-w-2xl text-base-content/70">
+      Si no tienes claro qué necesitas, llama: el técnico te dice si va cámara, desatranco o
+      rehabilitación.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+    <div class="grid gap-4 lg:grid-cols-2">
+      {
+        services.map((service) => (
+          <a
+            href={`/servicios/${service.id}`}
+            class="card rounded-md border border-base-300 bg-base-100 shadow-sm transition hover:border-primary/30 hover:shadow-md"
+            data-reveal
+          >
+            <div class="card-body">
+              <p class="badge badge-ghost rounded-md">{service.data.eyebrow}</p>
+              <h2 class="card-title font-display text-2xl text-primary">{service.data.title}</h2>
+              <p class="text-base-content/65">{service.data.description}</p>
+              <p class="mt-2 flex items-center justify-between text-sm">
+                <span class="text-base-content/50">{service.data.impact}</span>
+                <span class="font-medium text-primary">Ver servicio</span>
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <CTABanner />
+</BaseLayout>

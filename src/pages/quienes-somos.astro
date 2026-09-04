@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABanner from '../components/CTABanner.astro';
+import { team } from '../lib/gallery';
+import { site } from '../lib/site';
+
+const pillars = [
+  {
+    href: '/servicios/desatrancos',
+    kicker: 'Urgencia 24h',
+    title: 'Desatrancos en Madrid',
+  },
+  {
+    href: '/servicios/inspeccion-tv',
+    kicker: 'Inspección',
+    title: 'Localización de redes ocultas',
+  },
+  {
+    href: '/servicios/rehabilitacion-sin-obra',
+    kicker: 'Sin zanja',
+    title: 'Reparación de tuberías sin obra',
+  },
+  {
+    href: '/servicios/poceria',
+    kicker: 'Pocería',
+    title: 'Obras de fontanería',
+  },
+];
+---
+
+<BaseLayout
+  title="Quiénes somos: desatrancos y pocería en Madrid"
+  description="Blue Red Saneamientos, empresa líder en desatrancos en Madrid, reparación de tuberías sin obra, localización de redes ocultas y obras de fontanería. Más de 15 años y servicio 24h."
+>
+  <section class="page-wrap pt-14 pb-10 sm:pt-16">
+    <p class="section-kicker">Quiénes somos</p>
+    <h1 class="section-title max-w-4xl">Blue Red Saneamientos, empresa líder en el sector</h1>
+    <p class="section-lead mt-5 max-w-3xl">
+      Blue Red, empresa líder en el sector con un crecimiento anual ascendente, gracias al buen
+      hacer desde el departamento comercial, técnico y de operarios, hasta la respuesta rápida
+      ante las posibles incidencias. Nuestro mejor aval son nuestros trabajos.
+    </p>
+  </section>
+
+  <section class="page-wrap pb-16 sm:pb-20">
+    <div class="trust-bar" data-reveal>
+      <article>
+        <p>Experiencia</p>
+        <strong>{site.experience}</strong>
+      </article>
+      <article>
+        <p>Disponibilidad</p>
+        <strong>24h / 365 días</strong>
+      </article>
+      <article>
+        <p>Formación</p>
+        <strong>PRL 60 horas</strong>
+      </article>
+      <article>
+        <p>Garantía</p>
+        <strong>Seguro RC Canal Isabel II</strong>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="page-wrap py-20 sm:py-24">
+      <div class="about-split">
+        <div class="about-photo" data-reveal>
+          <img
+            src="/2021/03/acerca-de-bluered.jpg"
+            alt="Equipo de Blue Red Saneamientos en un trabajo de pocería en Madrid"
+            width="1600"
+            height="900"
+          />
+        </div>
+        <div data-reveal>
+          <p class="section-kicker">Empresa</p>
+          <h2 class="section-title">Servicio garantizado y profesional</h2>
+          <div class="prose-br mt-6">
+            <p>
+              Nuestra mayor prioridad es invertir en nuevas tecnologías para avanzar en la
+              rehabilitación de las redes de saneamiento y ocasionar el menor impacto sobre
+              nuestro cliente.
+            </p>
+            <p>
+              Nuestros profesionales están cualificados y formados en las disciplinas técnicas y
+              de protección de riesgos laborales (60&nbsp;h), lo que garantiza la calidad de
+              nuestros trabajos.
+            </p>
+            <p>
+              Disponemos de un seguro de responsabilidad civil muy completo, exigido por el Canal
+              de Isabel II para realizar <a href="/servicios/acometidas">acometidas</a> a su
+              colector municipal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-wrap py-20 sm:py-24">
+    <div class="mb-10 max-w-2xl" data-reveal>
+      <p class="section-kicker">Oficio</p>
+      <h2 class="section-title">Desatrancos, tuberías y obras de fontanería</h2>
+      <p class="section-lead mt-4">
+        Confía solo en profesionales para atender tu saneamiento. Solo si dejas tus tuberías en
+        manos expertas puedes tener la seguridad de que ahorrarás de verdad en reparaciones y
+        mantenimiento.
+      </p>
+    </div>
+    <div class="about-focus">
+      {
+        pillars.map((item) => (
+          <a href={item.href} data-reveal>
+            <p>{item.kicker}</p>
+            <strong>{item.title}</strong>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="page-wrap grid gap-12 py-20 sm:py-24 lg:grid-cols-2 lg:gap-16">
+      <div data-reveal>
+        <p class="section-kicker">Calidad</p>
+        <h2 class="section-title">El servicio que te mereces</h2>
+        <div class="prose-br mt-6">
+          <p>
+            No te conformes solo con un precio bajo: a menudo puedes encontrarte con sorpresas
+            desagradables. En BlueRed te ofrecemos el servicio de calidad que te mereces, con
+            tecnología de vanguardia para reparar y mantener todo tipo de canalizaciones sin un
+            impacto innecesario.
+          </p>
+          <p>
+            Cuéntanos qué problema tienes y nos pondremos manos a la obra para ofrecerte la mejor
+            solución: <a href="/servicios/desatrancos">desatrancos en Madrid</a>,
+            <a href="/servicios/reparacion-tuberias">reparación de tuberías</a> u
+            <a href="/servicios/poceria">obras de fontanería</a>.
+          </p>
+        </div>
+      </div>
+      <div data-reveal>
+        <p class="section-kicker">Método</p>
+        <h2 class="section-title">Toda nuestra experiencia a tu servicio</h2>
+        <div class="prose-br mt-6">
+          <p>
+            24 horas los 365 días del año. Realizamos cualquier trabajo que puedas imaginar:
+            desde proyectar y acometer una obra de poceros en Madrid hasta la
+            <a href="/servicios/rehabilitacion-sin-obra">reparación de tuberías sin obras</a>,
+            gracias a nuestro sistema de rehabilitación de canalizaciones. Un método que permite
+            arreglar roturas o filtraciones por fisura sin romper la pared.
+          </p>
+          <p>
+            ¿No sabes dónde está el problema? Disponemos de sistemas de detección de averías,
+            como cámaras de alta definición, con las que encontramos incluso las fisuras más
+            difíciles de ver a simple vista.
+            <a href="/servicios/inspeccion-tv">Localización de redes ocultas</a> incluida.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-wrap py-20 sm:py-24">
+    <div class="about-split">
+      <div data-reveal>
+        <p class="section-kicker">Prevención</p>
+        <h2 class="section-title">Mantenimiento preventivo y reparaciones eficaces</h2>
+        <div class="prose-br mt-6">
+          <p>
+            La mejor manera de evitar un problema grave es una revisión periódica del sistema de
+            saneamiento. Nuestros técnicos analizan que todo esté correcto y, si hace falta un
+            ajuste, lo solucionan antes de que vaya a más.
+          </p>
+          <p>
+            Desde Blue Red Saneamientos recomendamos estas revisiones de vez en cuando. No prestar
+            atención a tus tuberías puede causar atascos, roturas y filtraciones costosas y
+            complejas. No hay problema de este tipo que no podamos reparar, pero identificarlo
+            antes ayuda a cuidar de tu bolsillo.
+          </p>
+          <p>
+            <a href="/servicios/mantenimiento">Pide un mantenimiento</a> o cuéntanos el síntoma:
+            olor, humedad, reflujo o un atasco que se repite.
+          </p>
+        </div>
+      </div>
+      <div class="about-photo" data-reveal>
+        <img
+          src="/2023/05/inspeccion-bajantes.webp"
+          alt="Inspección de bajantes con cámara para localizar averías en Madrid"
+          width="1200"
+          height="800"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-base-200/60">
+    <div class="page-wrap py-20 sm:py-24">
+      <div class="mb-10 max-w-3xl" data-reveal>
+        <p class="section-kicker">Conócenos</p>
+        <h2 class="section-title">El equipo que necesitas</h2>
+        <div class="prose-br mt-6">
+          <p>
+            Nuestro trabajo abarca mucho más que arreglar tuberías, revisar acometidas y
+            desatrancos en Madrid. Contamos con un equipo completo: primera revisión, estudio de
+            las soluciones posibles y el trabajo de saneamiento que menos daño cause.
+          </p>
+          <p>
+            Gracias a ese esfuerzo hemos desarrollado un sistema eficaz y poco invasivo. En la
+            mayoría de trabajos no hace falta obra, salvo que el caso lo pida. Atrás quedaron los
+            desatrancos en los que había que abrir un agujero en la pared. Con tecnología
+            avanzada se puede acabar con el problema y volver a usar las tuberías al momento.
+          </p>
+        </div>
+      </div>
+      <div class="team-grid">
+        {
+          team.map((person) => {
+            const [first, ...rest] = person.name.split(' ');
+            const last = rest.join(' ');
+            return (
+              <article class="team-card" data-reveal>
+                <div class="team-card-copy">
+                  <span class="team-card-badge">{person.role}</span>
+                  <h3>
+                    {first}
+                    {last && (
+                      <>
+                        <br />
+                        {last}
+                      </>
+                    )}
+                  </h3>
+                </div>
+                <div class="team-card-photo">
+                  <img src={person.src} alt={person.name} width="600" height="600" />
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    title="Confía el saneamiento a profesionales"
+    text="Desatrancos en Madrid, localización de redes ocultas, reparación de tuberías sin obra y obras de fontanería. Técnicos propios, 24 horas."
+  />
+</BaseLayout>
