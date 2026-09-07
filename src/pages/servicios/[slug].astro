@@ -2,6 +2,18 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTABanner from '../../components/CTABanner.astro';
+import ServiceArt from '../../components/ServiceArt.astro';
+import { site, telHref } from '../../lib/site';
+
+const images: Record<string, string> = {
+  'rehabilitacion-sin-obra': '/2023/05/packers-copia.webp',
+  desatrancos: '/2026/05/wc.jpg',
+  'inspeccion-tv': '/2026/05/Bluered1.jpg',
+  'localizacion-redes-ocultas': '/2023/05/localizacion-redes-ocultas.webp',
+  'fresado-tuberias': '/2023/05/sistema-fresado-tuberias-cuadrada.webp',
+  'valvulas-antiretorno': '/2023/05/valvula-anti-retorno.webp',
+  poceria: '/2023/05/obras-poceria-en-madrid-cuadrada.webp',
+};
 
 export async function getStaticPaths() {
   const services = await getCollection('servicios');
@@ -14,37 +26,180 @@ export async function getStaticPaths() {
 const { service } = Astro.props;
 const { Content } = await render(service);
 const all = (await getCollection('servicios')).sort((a, b) => a.data.order - b.data.order);
+const hero = images[service.id] ?? '/2026/05/Bluered3.jpg';
+const systems = service.data.systems ?? [];
+const faq = service.data.faq ?? [];
+const systemsTitle = service.data.systemsTitle ?? 'Cómo lo hacemos';
+
+const faqJsonLd =
+  faq.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.q,
+          acceptedAnswer: { '@type': 'Answer', text: item.a },
+        })),
+      }
+    : null;
+
+const cta =
+  service.id === 'desatrancos'
+    ? {
+        title: 'Desatrancos urgentes 24h en Madrid',
+        text: 'Flota propia, succión y alta presión. Salimos el mismo día. Toda la Comunidad de Madrid.',
+      }
+    : service.id === 'inspeccion-tv'
+      ? {
+          title: 'Pide una inspección con cámara',
+          text: 'Informe, plano AutoCAD y vídeo. De 32 mm a 600 mm. Diagnóstico sin romper.',
+        }
+      : service.id === 'localizacion-redes-ocultas'
+        ? {
+            title: 'Localiza la red antes de romper',
+            text: 'Arquetas, pozos y roturas en el punto exacto. Menos pica, menos sorpresas.',
+          }
+        : service.id === 'fresado-tuberias'
+          ? {
+              title: '¿Raíces u hormigón en el tubo?',
+              text: 'Fresado de tuberías y bajantes de 50 a 250 mm. Pasa codos. Sin sustituir el tramo.',
+            }
+          : service.id === 'valvulas-antiretorno'
+            ? {
+                title: '¿El agua te vuelve por el desagüe?',
+                text: 'Válvula antiretorno: corta inundaciones y olores. Autónomas, sin luz ni mantenimiento continuo.',
+              }
+            : service.id === 'poceria'
+              ? {
+                  title: 'Poceros en Madrid, 24 horas',
+                  text: 'Zanja, arquetas, bajantes y acometidas a Canal de Isabel II. Cuadrilla propia y presupuesto claro.',
+                }
+      : {
+          title: 'Pide presupuesto sin compromiso',
+          text: 'Rehabilitación de tuberías sin obra, desatrancos en Madrid y pocería. Técnicos propios, 24 horas.',
+        };
 ---
 
 <BaseLayout title={service.data.title} description={service.data.description}>
-  <article class="mx-auto max-w-6xl px-4 pt-14 pb-16 sm:px-6">
-    <p class="badge badge-ghost rounded-md">{service.data.eyebrow}</p>
-    <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold text-primary md:text-5xl">
-      {service.data.title}
-    </h1>
-    <p class="mt-4 max-w-2xl text-lg text-base-content/70">{service.data.description}</p>
-    <p class="mt-3 text-sm font-medium text-secondary">{service.data.impact}</p>
+  {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
+  <article>
+    <section class="page-wrap pt-14 pb-10 sm:pt-16">
+      <p class="section-kicker">{service.data.eyebrow}</p>
+      <h1 class="section-title max-w-4xl">{service.data.title}</h1>
+      <p class="section-lead mt-5 max-w-3xl">{service.data.description}</p>
+    </section>
 
-    <div class="prose-br mt-10 max-w-3xl" data-reveal>
-      <Content />
-    </div>
+    <section class="bg-white">
+      <div class="page-wrap py-16 sm:py-20">
+        <div class="about-split">
+          <div class="about-photo" data-reveal>
+            <img
+              src={hero}
+              alt={service.data.title}
+              width="1200"
+              height="800"
+            />
+          </div>
+          <div class="prose-br" data-reveal>
+            <Content />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {
+      systems.length > 0 && (
+        <section class="system-band">
+          <div class="page-wrap py-16 sm:py-20">
+            <div class="mb-10 max-w-2xl" data-reveal>
+              <p class="section-kicker">Método</p>
+              <h2 class="section-title">{systemsTitle}</h2>
+            </div>
+            <div class="system-grid">
+              {systems.map((item) => (
+                <article class="system-card" data-reveal>
+                  <div class="system-card-media">
+                    <img src={item.image} alt={item.title} width="800" height="500" />
+                    <span class="system-card-kicker">{item.kicker}</span>
+                  </div>
+                  <div class="system-card-copy">
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    {
+      faq.length > 0 && (
+        <section class="faq-band">
+          <div class="page-wrap py-16 sm:py-20">
+            <div class="faq-split">
+              <div class="faq-intro" data-reveal>
+                <p class="section-kicker">Dudas</p>
+                <h2 class="section-title">Preguntas frecuentes</h2>
+                <p class="section-lead">
+                  Lo que más nos preguntan sobre {service.data.title.toLowerCase()}. Si no está aquí,
+                  llama y te lo aclaramos.
+                </p>
+                <a href={telHref} class="faq-call">
+                  Llamar {site.phoneDisplay}
+                </a>
+              </div>
+              <div class="faq-list">
+                {faq.map((item, index) => (
+                  <details class="faq-item" name="servicio-faq" open={index === 0} data-reveal>
+                    <summary>
+                      <span class="faq-num">{String(index + 1).padStart(2, '0')}</span>
+                      <span class="faq-q">{item.q}</span>
+                      <span class="faq-toggle" aria-hidden="true"></span>
+                    </summary>
+                    <div class="faq-a">
+                      <p>{item.a}</p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section class="service-more-band">
+      <div class="page-wrap py-14 sm:py-16">
+        <div class="mb-8 flex flex-wrap items-end justify-between gap-3" data-reveal>
+          <div>
+            <p class="section-kicker">También hacemos</p>
+            <h2 class="section-title">Otros servicios</h2>
+          </div>
+          <a href="/servicios" class="service-more-all">Ver todos</a>
+        </div>
+        <div class="service-more">
+          {
+            all
+              .filter((item) => item.id !== service.id)
+              .map((item) => (
+                <a href={`/servicios/${item.id}`} class="service-more-item" data-reveal>
+                  <span class="service-more-art">
+                    <ServiceArt id={item.id} />
+                  </span>
+                  <span>
+                    <p>{item.data.eyebrow}</p>
+                    <strong>{item.data.title}</strong>
+                  </span>
+                </a>
+              ))
+          }
+        </div>
+      </div>
+    </section>
   </article>
 
-  <section class="border-t border-base-300 bg-base-200">
-    <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
-      <p class="mb-4 text-sm font-medium text-primary">Otros servicios</p>
-      <div class="flex flex-wrap gap-2">
-        {
-          all
-            .filter((item) => item.id !== service.id)
-            .map((item) => (
-              <a href={`/servicios/${item.id}`} class="btn btn-sm btn-outline">
-                {item.data.title}
-              </a>
-            ))
-        }
-      </div>
-    </div>
-  </section>
-  <CTABanner />
+  <CTABanner title={cta.title} text={cta.text} />
 </BaseLayout>

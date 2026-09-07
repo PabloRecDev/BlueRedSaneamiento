@@ -5,6 +5,8 @@ dist/
 
 # dependencies
 node_modules/
+node_modules.nosync/
+node_modules.icloud-old/
 
 # logs
 npm-debug.log*

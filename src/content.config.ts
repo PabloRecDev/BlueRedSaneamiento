@@ -10,6 +10,25 @@ const servicios = defineCollection({
     description: z.string(),
     order: z.number(),
     impact: z.string(),
+    systemsTitle: z.string().optional(),
+    systems: z
+      .array(
+        z.object({
+          kicker: z.string(),
+          title: z.string(),
+          image: z.string(),
+          text: z.string(),
+        }),
+      )
+      .optional(),
+    faq: z
+      .array(
+        z.object({
+          q: z.string(),
+          a: z.string(),
+        }),
+      )
+      .optional(),
   }),
 });
 

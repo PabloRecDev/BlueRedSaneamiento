@@ -25,24 +25,40 @@
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
-    gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
-      gsap.from(el, {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 90%' },
-      });
+    ScrollTrigger.batch('[data-reveal]', {
+      start: 'top 88%',
+      onEnter: (batch) => {
+        gsap.fromTo(
+          batch,
+          { x: -28 },
+          {
+            x: 0,
+            duration: 1.05,
+            stagger: 0.09,
+            ease: 'power3.out',
+            overwrite: true,
+            onComplete() {
+              gsap.set(batch, { clearProps: 'transform' });
+            },
+          },
+        );
+      },
     });
 
     if (document.querySelector('[data-hero]')) {
-      gsap.from('[data-hero-item]', {
-        y: 16,
-        opacity: 0,
-        duration: 0.65,
-        stagger: 0.08,
-        ease: 'power2.out',
-      });
+      gsap.fromTo(
+        '[data-hero-item]',
+        { x: -22 },
+        {
+          x: 0,
+          duration: 1.1,
+          stagger: 0.1,
+          ease: 'power3.out',
+          onComplete() {
+            gsap.set('[data-hero-item]', { clearProps: 'transform' });
+          },
+        },
+      );
     }
   }
 

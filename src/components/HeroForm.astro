@@ -1,46 +1,21 @@
 <form class="hero-form" data-contact-form>
   <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
-
-  <label class="hero-field">
-    <span>Nombre</span>
-    <span class="hero-input">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.12a7.5 7.5 0 0 1 15 0"></path>
+  <div class="hero-search">
+    <input required name="name" autocomplete="name" placeholder="Nombre" aria-label="Nombre" />
+    <span class="hero-search-sep" aria-hidden="true"></span>
+    <input
+      required
+      name="phone"
+      type="tel"
+      autocomplete="tel"
+      placeholder="Teléfono"
+      aria-label="Teléfono"
+    />
+    <button type="submit" class="hero-search-go" aria-label="Enviar consulta">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0-6.75-6.75M19.5 12l-6.75 6.75"></path>
       </svg>
-      <input required name="name" autocomplete="name" placeholder="Escribe tu nombre…" />
-    </span>
-  </label>
-
-  <label class="hero-field">
-    <span>Email</span>
-    <span class="hero-input">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0-8.66 5.41a2.25 2.25 0 0 1-2.18 0L2.25 6.75"></path>
-      </svg>
-      <input name="email" type="email" autocomplete="email" placeholder="Escribe tu email…" />
-    </span>
-  </label>
-
-  <label class="hero-field">
-    <span>Teléfono</span>
-    <span class="hero-input">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.28 6.72 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.37a1.5 1.5 0 0 0-1.07-1.44l-3.3-.94a1.5 1.5 0 0 0-1.6.5l-.72.88a11.3 11.3 0 0 1-5.3-5.3l.88-.72a1.5 1.5 0 0 0 .5-1.6l-.94-3.3A1.5 1.5 0 0 0 7.87 4.5H6.5A2.25 2.25 0 0 0 4.25 6.75H2.25Z"></path>
-      </svg>
-      <input required name="phone" type="tel" autocomplete="tel" placeholder="91 705 65 15" />
-    </span>
-  </label>
-
-  <label class="hero-field">
-    <span>Mensaje</span>
-    <span class="hero-input hero-input--area">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3.75h6.75M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z"></path>
-      </svg>
-      <textarea name="message" rows="4" placeholder="Escribe tu mensaje"></textarea>
-    </span>
-  </label>
-
-  <button type="submit" class="hero-submit">Enviar mensaje</button>
+    </button>
+  </div>
   <p data-form-status class="hero-form-status hidden"></p>
 </form>

@@ -35,14 +35,23 @@ export default defineConfig({
     plugins: [increaseSsrTimeout(), tailwindcss()],
     server: {
       watch: {
-        ignored: ['**/.vercel/**', '**/.astro/**'],
-      },
-      warmup: {
-        clientFiles: ['./src/styles/global.css'],
-        ssrFiles: ['./src/styles/global.css', './src/layouts/BaseLayout.astro'],
+        ignored: [
+          '**/.git/**',
+          '**/.vercel/**',
+          '**/.astro/**',
+          '**/dist/**',
+          '**/public/**',
+          '**/node_modules/**',
+        ],
       },
     },
   },
   adapter: vercel(),
   integrations: [mdx(), sitemap()],
+  redirects: {
+    '/servicios/limpieza-tuberias': '/servicios/desatrancos',
+    '/servicios/reparacion-tuberias': '/servicios/rehabilitacion-sin-obra',
+    '/servicios/acometidas': '/servicios/poceria',
+    '/servicios/mantenimiento': '/servicios/desatrancos',
+  },
 });

@@ -2,14 +2,13 @@
 import { getCollection } from 'astro:content';
 
 const images: Record<string, { src: string; cta: string }> = {
+  'rehabilitacion-sin-obra': { src: '/2023/05/packers-copia.webp', cta: 'Ver sin obra' },
   desatrancos: { src: '/2026/05/wc.jpg', cta: 'Urgencia 24h' },
   'inspeccion-tv': { src: '/2026/05/Bluered1.jpg', cta: 'Ver inspección' },
-  'rehabilitacion-sin-obra': { src: '/2023/05/packers-copia.webp', cta: 'Ver sin obra' },
-  'reparacion-tuberias': { src: '/2026/05/Bluered2.jpg', cta: 'Ver reparación' },
-  'limpieza-tuberias': { src: '/2023/11/agua-sucia.jpg', cta: 'Ver limpieza' },
+  'localizacion-redes-ocultas': { src: '/2023/05/localizacion-redes-ocultas.webp', cta: 'Ver localización' },
+  'fresado-tuberias': { src: '/2023/05/sistema-fresado-tuberias-cuadrada.webp', cta: 'Ver fresado' },
+  'valvulas-antiretorno': { src: '/2023/05/valvula-antirretorno-wastop.webp', cta: 'Ver válvulas' },
   poceria: { src: '/2023/05/obras-poceria-en-madrid-cuadrada.webp', cta: 'Ver pocería' },
-  acometidas: { src: '/2023/05/localizacion-redes-ocultas.webp', cta: 'Ver acometidas' },
-  mantenimiento: { src: '/2023/05/inspeccion-bajantes.webp', cta: 'Ver mantenimiento' },
 };
 
 const fallback = { src: '/2026/05/Bluered3.jpg', cta: 'Ver servicio' };
@@ -21,7 +20,11 @@ const services = (await getCollection('servicios')).sort((a, b) => a.data.order 
     services.map((service) => {
       const media = images[service.id] ?? fallback;
       return (
-        <a href={`/servicios/${service.id}`} class="service-tile" data-reveal>
+        <a
+          href={`/servicios/${service.id}`}
+          class:list={['service-tile', service.id === 'poceria' && 'service-tile--wide']}
+          data-reveal
+        >
           <img src={media.src} alt="" width="1200" height="800" />
           <span class="service-tile-veil" aria-hidden="true"></span>
           <span class="service-tile-copy">
@@ -32,12 +35,4 @@ const services = (await getCollection('servicios')).sort((a, b) => a.data.order 
       );
     })
   }
-
-  <a href="/contacto" class="service-tile service-tile--cta" data-reveal>
-    <span class="service-tile-copy">
-      <span class="service-tile-title">¿No estás seguro de qué servicio necesitas?</span>
-      <span class="service-tile-hint">Te llamamos y te orientamos. Salimos 24h en Madrid.</span>
-      <span class="service-tile-btn">Pedir información</span>
-    </span>
-  </a>
 </div>

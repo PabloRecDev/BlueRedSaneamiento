@@ -3,35 +3,43 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTABanner from '../components/CTABanner.astro';
 import Hero from '../components/Hero.astro';
-import PhotoGrid from '../components/PhotoGrid.astro';
+import ReviewCarousel from '../components/ReviewCarousel.astro';
 import ServiceTiles from '../components/ServiceTiles.astro';
-import { featured } from '../lib/gallery';
-import { reviews } from '../lib/site';
+import { mapsHref } from '../lib/site';
 
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
+const blogCovers: Record<string, string> = {
+  'que-es-inspeccion-camara-tv': '/2026/05/Bluered1.jpg',
+  'como-detectar-una-fuga-de-agua-oculta-antes-de-que-provoque-danos-graves':
+    '/2023/05/localizacion-redes-ocultas.webp',
+  'diferencias-entre-desatasco-manual-agua-a-presion-y-fresado-de-tuberias':
+    '/2023/05/sistema-fresado-tuberias-cuadrada.webp',
+};
+const blogCoverFallback = '/2026/05/Bluered3.jpg';
+
 const process = [
   {
     n: '01',
     title: 'Inspección gratuita',
-    text: 'El técnico se desplaza, ve la incidencia y usa cámara si hace falta.',
+    text: 'Tras recibir la solicitud del cliente, el departamento técnico se desplaza al lugar para visualizar la incidencia.',
   },
   {
     n: '02',
-    title: 'Estudio claro',
-    text: 'Planteamos las opciones posibles, priorizando las de menor impacto.',
+    title: 'Estudio detallado',
+    text: 'Nuestro departamento técnico plantea las posibles soluciones, priorizando aquellas que ocasionen el menor impacto.',
   },
   {
     n: '03',
-    title: 'Presupuesto',
-    text: 'Valoras con nosotros: más calidad, menos destrozo, coste cerrado.',
+    title: 'Presupuesto personalizado',
+    text: 'Se valoran las diferentes soluciones aportadas, pensando siempre en la mayor calidad al menor costo.',
   },
   {
     n: '04',
-    title: 'Financiación',
-    text: 'Si el trabajo lo pide, ajustamos el pago a lo que te encaje.',
+    title: 'Financiación a medida',
+    text: 'Ofrecemos la posibilidad de financiar los trabajos, ajustándonos a las necesidades del cliente.',
   },
 ];
 ---
@@ -42,25 +50,23 @@ const process = [
 >
   <Hero />
 
-  <section class="page-wrap py-10 sm:py-12">
-    <div class="trust-bar" data-reveal>
-      <article>
-        <p>Experiencia</p>
-        <strong>Más de 15 años</strong>
-      </article>
-      <article>
-        <p>Disponibilidad</p>
-        <strong>24h / 365 días</strong>
-      </article>
-      <article>
-        <p>Prioridad</p>
-        <strong>Reparar sin zanja</strong>
-      </article>
-      <article>
-        <p>Zona</p>
-        <strong>Madrid y sur</strong>
-      </article>
-    </div>
+  <section class="process-band">
+    {
+      process.map((step, i) => (
+        <article class="process-row" style={`--n: ${i}`} data-reveal>
+          <span class="process-row-n" aria-hidden="true">
+            {step.n}
+          </span>
+          <div class="process-row-copy">
+            <h2>
+              <span aria-hidden="true">↓</span>
+              {step.title}
+            </h2>
+            <p>{step.text}</p>
+          </div>
+        </article>
+      ))
+    }
   </section>
 
   <section class="bg-white">
@@ -76,24 +82,6 @@ const process = [
         </p>
       </div>
       <ServiceTiles />
-    </div>
-  </section>
-
-  <section class="page-wrap py-20 sm:py-24">
-    <div class="mb-12 max-w-2xl" data-reveal>
-      <p class="section-kicker">Método</p>
-      <h2 class="section-title">Cómo intervenimos</h2>
-    </div>
-    <div class="process-grid">
-      {
-        process.map((step) => (
-          <article data-reveal>
-            <span>{step.n}</span>
-            <h2>{step.title}</h2>
-            <p>{step.text}</p>
-          </article>
-        ))
-      }
     </div>
   </section>
 
@@ -128,34 +116,19 @@ const process = [
     </div>
   </section>
 
-  <section class="page-wrap py-20 sm:py-24">
-    <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end" data-reveal>
-      <div>
-        <p class="section-kicker">Trabajos</p>
-        <h2 class="section-title">Galería de obras</h2>
-      </div>
-      <a href="/proyectos" class="btn btn-outline">Ver galería</a>
-    </div>
-    <PhotoGrid items={featured.slice(0, 5)} />
-  </section>
-
-  <section class="bg-white">
-    <div class="page-wrap py-20 sm:py-24">
-      <div class="mb-10 max-w-xl" data-reveal>
-        <p class="section-kicker">Opiniones</p>
-        <h2 class="section-title">Lo que dicen quienes nos llaman</h2>
-      </div>
-      <div class="review-grid">
-        {
-          reviews.slice(0, 4).map((review) => (
-            <blockquote class="review-card" data-reveal>
-              <p>“{review.quote}”</p>
-              <footer>{review.name}</footer>
-            </blockquote>
-          ))
-        }
+  <section class="review-section">
+    <div class="page-wrap pt-20 sm:pt-24">
+      <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end" data-reveal>
+        <div>
+          <p class="section-kicker">Opiniones</p>
+          <h2 class="section-title">Lo que dicen en Google</h2>
+        </div>
+        <a href={mapsHref} class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+          Ver en Google
+        </a>
       </div>
     </div>
+    <ReviewCarousel />
   </section>
 
   <section class="page-wrap py-20 sm:py-24">
@@ -168,18 +141,28 @@ const process = [
     </div>
     <div class="blog-grid">
       {
-        posts.map((post) => (
-          <a href={`/blog/${post.id}`} class="blog-card" data-reveal>
-            <time datetime={post.data.pubDate.toISOString()}>
-              {post.data.pubDate.toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
-            <span>Leer más</span>
+        posts.map((post, i) => (
+          <a
+            href={`/blog/${post.id}`}
+            class:list={['blog-card', i === 0 && 'blog-card--featured']}
+            data-reveal
+          >
+            <span class="blog-card-media">
+              <img src={blogCovers[post.id] ?? blogCoverFallback} alt="" width="1200" height="800" />
+            </span>
+            <span class="blog-card-body">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('es-ES', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+                <em>{post.data.minutes} min</em>
+              </time>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <span>Leer más</span>
+            </span>
           </a>
         ))
       }

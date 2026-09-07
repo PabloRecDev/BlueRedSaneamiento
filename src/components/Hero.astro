@@ -1,14 +1,10 @@
 ---
 import { site, telHref } from '../lib/site';
-import HeroForm from './HeroForm.astro';
 import MadridSilhouette from './MadridSilhouette.astro';
 ---
 
 <section data-hero class="hero-shell">
   <div class="hero-panel">
-    <div class="hero-madrid" aria-hidden="true">
-      <MadridSilhouette />
-    </div>
     <div class="hero-panel-inner">
       <div class="hero-main">
         <div class="hero-copy">
@@ -17,16 +13,13 @@ import MadridSilhouette from './MadridSilhouette.astro';
             Reparación de tuberías
             <span>Sin obra</span>
           </h1>
-          <p class="hero-line" data-hero-item>
-            Pocería · Inspección TV · Mantenimiento · Obras · Rehabilitación
-          </p>
-          <img
-            class="hero-truck"
-            src="/camion-hero.png"
-            alt="Camión Blue Red de saneamiento"
-            width="975"
-            height="683"
-          />
+          <ul class="hero-line" data-hero-item>
+            <li>Pocería</li>
+            <li>Inspección TV</li>
+            <li>Mantenimiento</li>
+            <li>Obras</li>
+            <li>Rehabilitación</li>
+          </ul>
           <p class="hero-lead" data-hero-item>
             Empresa
             <span class="hero-lider">
@@ -40,13 +33,136 @@ import MadridSilhouette from './MadridSilhouette.astro';
             </span>
             con más de <strong>15 años</strong> de experiencia
           </p>
+
+          <div class="hero-actions" data-hero-item>
+            <a href={telHref} class="btn btn-secondary">Llamar {site.phoneDisplay}</a>
+            <a href="/contacto" class="btn btn-outline">Pedir presupuesto</a>
+          </div>
+
+          <div class="hero-points" data-hero-item>
+            <a href={telHref} class="hero-point hero-point--urgent">
+              <span class="hero-point-copy">
+                <span class="hero-point-kicker">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <circle cx="8" cy="8" r="5.25" stroke="currentColor" stroke-width="1.5"></circle>
+                    <path d="M8 5.2V8l2 1.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
+                  </svg>
+                  Urgencias
+                </span>
+                <span class="hero-point-title">Servicio 24 horas</span>
+                <span class="hero-point-text">Salimos el mismo día en Madrid y el sur.</span>
+                <span class="hero-point-offer">{site.phoneDisplay}</span>
+              </span>
+              <svg class="hero-point-art" viewBox="0 0 160 118" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="hp-van" x1="70" y1="28" x2="70" y2="92" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#f04a64"></stop>
+                    <stop offset="0.52" stop-color="#e62645"></stop>
+                    <stop offset="1" stop-color="#c41c37"></stop>
+                  </linearGradient>
+                  <linearGradient id="hp-glass" x1="122" y1="34" x2="122" y2="60" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#f7fafc"></stop>
+                    <stop offset="1" stop-color="#b7c8d6"></stop>
+                  </linearGradient>
+                </defs>
+                <ellipse cx="86" cy="108" rx="50" ry="7" fill="#e62645" opacity="0.14"></ellipse>
+                <path d="M22 76c0-5 3.5-8 9-8h9v22H29c-4.5 0-7-3.5-7-7V76Z" fill="#2c3542"></path>
+                <path d="M28 80V50c0-6 4.5-9 11-9h60l11-13h26c8 0 14 5.5 14 15v37c0 5.5-3.5 9-10 9H39c-7 0-11-3.5-11-9Z" fill="url(#hp-van)"></path>
+                <path d="M28 70h113v11c0 5.5-3.5 9-10 9H39c-7 0-11-3.5-11-9V70Z" fill="#9e162c" opacity="0.45"></path>
+                <rect x="42" y="46" width="13" height="11" rx="2" fill="#fff" opacity="0.22"></rect>
+                <rect x="61" y="46" width="13" height="11" rx="2" fill="#fff" opacity="0.22"></rect>
+                <rect x="80" y="46" width="13" height="11" rx="2" fill="#fff" opacity="0.22"></rect>
+                <path d="M109 33h26c3.8 0 5.8 2 5.8 6v18H109V33Z" fill="url(#hp-glass)"></path>
+                <path d="M111 35h9.5l-2.8 16H111V35Z" fill="#fff" opacity="0.48"></path>
+                <path d="M99 41v42" stroke="#9a1630" stroke-width="1.7"></path>
+                <rect x="139" y="64" width="7.5" height="6.5" rx="1.3" fill="#ffd45a"></rect>
+                <rect x="139" y="72.5" width="5.5" height="4" rx="0.9" fill="#fff" opacity="0.78"></rect>
+                <path d="M38 82a13 9 0 0 1 26 0" fill="#8d142b"></path>
+                <path d="M112 82a13 9 0 0 1 26 0" fill="#8d142b"></path>
+                <circle cx="51" cy="89" r="12" fill="#1b1d20"></circle>
+                <circle cx="51" cy="89" r="7.4" fill="#4c5158"></circle>
+                <circle cx="51" cy="89" r="3.6" fill="#d7dce1"></circle>
+                <circle cx="51" cy="89" r="1.3" fill="#1b1d20"></circle>
+                <circle cx="125" cy="89" r="12" fill="#1b1d20"></circle>
+                <circle cx="125" cy="89" r="7.4" fill="#4c5158"></circle>
+                <circle cx="125" cy="89" r="3.6" fill="#d7dce1"></circle>
+                <circle cx="125" cy="89" r="1.3" fill="#1b1d20"></circle>
+                <circle cx="40" cy="30" r="15" fill="#fff"></circle>
+                <circle cx="40" cy="30" r="12.2" fill="none" stroke="#e62645" stroke-width="2.8"></circle>
+                <path d="M40 30V20.2" stroke="#093c5f" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M40 30l7 3.6" stroke="#e62645" stroke-width="2" stroke-linecap="round"></path>
+                <circle cx="40" cy="30" r="1.8" fill="#093c5f"></circle>
+              </svg>
+            </a>
+            <a href="/servicios/rehabilitacion-sin-obra" class="hero-point hero-point--trench">
+              <span class="hero-point-copy">
+                <span class="hero-point-kicker">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M3.5 11.5 11.5 3.5M4.8 3.5h6.7v6.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  Sin zanja
+                </span>
+                <span class="hero-point-title">Reparar sin romper</span>
+                <span class="hero-point-text">Manga, packer y cámara.</span>
+                <span class="hero-point-offer">Menos escombro</span>
+              </span>
+              <svg class="hero-point-art" viewBox="0 0 160 118" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="hp-slab" x1="86" y1="58" x2="86" y2="104" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#f4f7f9"></stop>
+                    <stop offset="1" stop-color="#d7e0e6"></stop>
+                  </linearGradient>
+                  <linearGradient id="hp-lens" x1="118" y1="22" x2="118" y2="58" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#3d8bb0"></stop>
+                    <stop offset="1" stop-color="#093c5f"></stop>
+                  </linearGradient>
+                </defs>
+                <ellipse cx="86" cy="108" rx="48" ry="7" fill="#093c5f" opacity="0.14"></ellipse>
+                <path d="M28 80 86 58l58 22-58 22Z" fill="url(#hp-slab)"></path>
+                <path d="M144 80v10L86 112V102Z" fill="#b7c4ce"></path>
+                <path d="M28 80v10l58 22V102Z" fill="#c9d4dc"></path>
+                <path d="M86 58v44M57 69l58 22M115 69 57 91" stroke="#fff" stroke-width="1.35" stroke-linecap="round"></path>
+                <path d="M64 46c-12 2-22 14-24 28" stroke="#1c2430" stroke-width="2.4" stroke-linecap="round"></path>
+                <rect x="72" y="30" width="34" height="26" rx="7" fill="#0b4a75"></rect>
+                <rect x="78" y="36" width="14" height="14" rx="3" fill="#1a6794"></rect>
+                <circle cx="86" cy="36" r="2.3" fill="#e62645"></circle>
+                <circle cx="118" cy="43" r="17" fill="#093c5f"></circle>
+                <circle cx="118" cy="43" r="13.2" fill="url(#hp-lens)"></circle>
+                <circle cx="118" cy="43" r="8.2" fill="#dbe8ef"></circle>
+                <circle cx="118" cy="43" r="3.6" fill="#093c5f"></circle>
+                <circle cx="115.4" cy="40.4" r="1.5" fill="#fff"></circle>
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <div class="hero-form-wrap" data-hero-item>
-          <HeroForm />
-          <p class="hero-form-phone">
-            <a href={telHref}>¿Tienes alguna pregunta? {site.phoneDisplay}</a>
-          </p>
+        <div class="hero-visual" data-hero-item>
+          <div class="hero-madrid" aria-hidden="true">
+            <MadridSilhouette />
+          </div>
+          <div class="hero-collage">
+            <img
+              class="hero-shot hero-shot--a"
+              src="/2026/05/Bluered1.jpg"
+              alt="Robot de inspección en tubería"
+              width="800"
+              height="600"
+            />
+            <img
+              class="hero-shot hero-shot--b"
+              src="/2023/05/packers-copia.webp"
+              alt="Reparación de tuberías con packer"
+              width="800"
+              height="600"
+            />
+            <img
+              class="hero-shot hero-shot--c"
+              src="/2023/05/camion-desatrancos-1024x681-1.webp"
+              alt="Camión de desatrancos Blue Red"
+              width="1024"
+              height="681"
+            />
+          </div>
         </div>
       </div>
     </div>
