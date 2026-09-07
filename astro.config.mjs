@@ -1,9 +1,11 @@
 // @ts-check
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import react from '@astrojs/react';
 
 /** iCloud + Tailwind/daisyUI can exceed Vite's 60s fetchModule timeout. */
 function increaseSsrTimeout() {
@@ -33,6 +35,11 @@ export default defineConfig({
   trailingSlash: 'never',
   vite: {
     plugins: [increaseSsrTimeout(), tailwindcss()],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+      },
+    },
     server: {
       watch: {
         ignored: [
@@ -47,7 +54,7 @@ export default defineConfig({
     },
   },
   adapter: vercel(),
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap(), react()],
   redirects: {
     '/servicios/limpieza-tuberias': '/servicios/desatrancos',
     '/servicios/reparacion-tuberias': '/servicios/rehabilitacion-sin-obra',

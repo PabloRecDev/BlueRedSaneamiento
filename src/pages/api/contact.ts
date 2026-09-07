@@ -36,23 +36,35 @@ export const POST: APIRoute = async ({ request }) => {
 
   const key = import.meta.env.RESEND_API_KEY;
   if (key) {
+    const payload: Record<string, unknown> = {
+      from: import.meta.env.RESEND_FROM || 'Blue Red Web <noreply@blueredsaneamiento.net>',
+      to: [site.email],
+      subject: `Parte web · ${type || 'contacto'} · ${name}`,
+      text: body,
+    };
+    if (email) payload.reply_to = email;
+
     const sent = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${key}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        from: 'Blue Red Web <noreply@blueredsaneamiento.net>',
-        to: [site.email],
-        subject: `Parte web · ${type || 'contacto'} · ${name}`,
-        text: body,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (sent.ok) {
       return Response.json({ ok: true, message: 'Parte enviado. Te llamamos.' });
     }
+
+    const error = (await sent.json().catch(() => null)) as { message?: string } | null;
+    return Response.json(
+      {
+        ok: false,
+        message: error?.message ?? 'No se pudo enviar el correo. Prueba por WhatsApp o llama.',
+      },
+      { status: 502 },
+    );
   }
 
   return Response.json({

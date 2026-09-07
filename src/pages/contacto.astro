@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ContactForm from '../components/ContactForm.astro';
+import ContactForm from '../components/ContactForm.tsx';
 import { mapsEmbedSrc, mapsHref, site, telHref, whatsappHref } from '../lib/site';
 ---
 
@@ -8,57 +8,84 @@ import { mapsEmbedSrc, mapsHref, site, telHref, whatsappHref } from '../lib/site
   title="Contacto y urgencias 24h"
   description="Contacta con Blue Red Saneamientos en Madrid: teléfono 91 705 65 15, WhatsApp 24h o formulario para inspección y presupuesto."
 >
-  <section class="mx-auto grid max-w-6xl gap-10 px-4 pt-14 pb-20 sm:px-6 lg:grid-cols-12">
-    <div class="lg:col-span-5">
-      <p class="text-sm font-medium text-secondary">Contacto</p>
-      <h1 class="mt-2 font-display text-4xl font-semibold text-primary md:text-5xl">
-        Habla con el equipo
-      </h1>
-      <p class="mt-4 leading-relaxed text-base-content/70">
-        Urgencia, inspección o mantenimiento. Si hay agua en el suelo, llama. Si puedes esperar
-        un poco, déjanos el mensaje y te devolvemos el aviso.
-      </p>
+  <section class="bg-white">
+    <div class="page-wrap grid gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:gap-20">
+      <div data-reveal>
+        <p class="text-sm text-base-content/45">Contacto</p>
+        <h1 class="mt-2 text-4xl font-bold tracking-tight text-primary sm:text-5xl">
+          Habla con el equipo
+        </h1>
+        <p class="mt-4 max-w-md text-base leading-relaxed text-base-content/60">
+          Urgencia, inspección o presupuesto. Si hay agua en el suelo, llama. Si puedes esperar,
+          te devolvemos el aviso.
+        </p>
+        <ContactForm />
+      </div>
 
-      <ul class="mt-8 space-y-5">
-        <li>
-          <p class="text-sm text-base-content/55">Teléfono</p>
-          <a href={telHref} class="font-display text-3xl text-primary">{site.phoneDisplay}</a>
-        </li>
-        <li>
-          <p class="text-sm text-base-content/55">WhatsApp</p>
-          <a href={whatsappHref()} class="link link-secondary">Abrir conversación</a>
-        </li>
-        <li>
-          <p class="text-sm text-base-content/55">Email</p>
-          <a href={`mailto:${site.email}`} class="link">{site.email}</a>
-        </li>
-        <li>
-          <p class="text-sm text-base-content/55">Taller</p>
-          <a href={mapsHref} target="_blank" rel="noreferrer" class="link">
-            {site.address.street}, {site.address.postalCode} {site.address.city}, {site.address.region}
+      <div class="flex flex-col" data-reveal>
+        <div class="contact-map-card">
+          <iframe
+            title={`Taller de Blue Red Saneamientos en ${site.address.street}, ${site.address.city}`}
+            src={mapsEmbedSrc}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+          <a class="contact-map-open" href={mapsHref} target="_blank" rel="noreferrer">
+            Abrir en Maps
           </a>
-        </li>
-      </ul>
-    </div>
-    <div class="lg:col-span-7" data-reveal>
-      <ContactForm />
-    </div>
-  </section>
+        </div>
 
-  <section class="page-wrap pb-20">
-    <div class="contact-map" data-reveal>
-      <iframe
-        title={`Taller de Blue Red Saneamientos en ${site.address.street}, ${site.address.city}`}
-        src={mapsEmbedSrc}
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen
-      ></iframe>
+        <div class="mt-10 border-t border-base-300 pt-8">
+          <h2 class="text-lg font-semibold text-primary">Taller</h2>
+          <p class="mt-2 text-sm leading-relaxed text-base-content/60">
+            Ven o pide que salgamos. Estamos en el polígono de Leganés, 24 horas.
+          </p>
+          <div class="mt-5 grid gap-6 sm:grid-cols-2">
+            <div>
+              <p class="font-semibold text-primary">{site.address.city}</p>
+              <p class="mt-1 text-sm text-base-content/60">
+                {site.address.street}<br />
+                {site.address.postalCode} {site.address.city}, {site.address.region}
+              </p>
+            </div>
+            <div>
+              <p class="font-semibold text-primary">Horario</p>
+              <p class="mt-1 text-sm text-base-content/60">{site.hours}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 border-t border-base-300 pt-8">
+          <h2 class="text-lg font-semibold text-primary">Escríbenos</h2>
+          <p class="mt-2 text-sm leading-relaxed text-base-content/60">
+            Teléfono para urgencias. Email o WhatsApp si puede esperar.
+          </p>
+          <div class="mt-5 grid gap-6 sm:grid-cols-2">
+            <div>
+              <p class="font-semibold text-primary">Teléfono</p>
+              <a href={telHref} class="mt-1 inline-block text-sm text-base-content/70 underline underline-offset-2">
+                {site.phoneDisplay}
+              </a>
+            </div>
+            <div>
+              <p class="font-semibold text-primary">Email</p>
+              <a
+                href={`mailto:${site.email}`}
+                class="mt-1 inline-block text-sm text-base-content/70 underline underline-offset-2"
+              >
+                {site.email}
+              </a>
+            </div>
+          </div>
+          <a
+            href={whatsappHref('Hola, necesito información de Blue Red Saneamientos.')}
+            class="mt-5 inline-block text-sm font-medium text-primary underline underline-offset-2"
+          >
+            WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
-    <p class="mt-3 text-sm text-base-content/55">
-      <a href={mapsHref} target="_blank" rel="noreferrer" class="link link-primary">
-        Cómo llegar · Google Maps
-      </a>
-    </p>
   </section>
 </BaseLayout>
