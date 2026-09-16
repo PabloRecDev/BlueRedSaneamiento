@@ -3774,7 +3774,6 @@
     padding: 0.95rem 0.2rem;
     border-bottom: 1px solid rgb(255 255 255 / 0.14);
     color: #fff;
-    text-decoration: none;
     transition:
       background-color 0.2s ease,
       border-color 0.2s ease,
@@ -3795,8 +3794,15 @@
 
   .services-acc-head {
     display: flex;
+    width: 100%;
     align-items: center;
     gap: 0.75rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
   }
 
   .services-acc-icon {
@@ -3843,14 +3849,32 @@
     opacity: 1;
   }
 
-  .services-acc-desc {
+  .services-acc-panel {
     overflow: hidden;
+    min-height: 0;
+  }
+
+  .services-acc-desc {
     padding-top: 0.45rem;
+    margin: 0;
     max-width: 36rem;
     font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.55;
     color: rgb(255 255 255 / 0.62);
+  }
+
+  .services-acc-more {
+    display: inline-flex;
+    margin-top: 0.75rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #e62645;
+    text-decoration: none;
+  }
+
+  .services-acc-more:hover {
+    color: #fff;
   }
 
   .services-visual {
