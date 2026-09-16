@@ -60,31 +60,79 @@
         },
       );
     }
+
+    const process = document.querySelector<HTMLElement>('[data-process]');
+    const processSteps = process?.querySelectorAll<HTMLElement>('[data-process-step]');
+
+    const setProcess = (progress: number) => {
+      if (!process || !processSteps?.length) return;
+      process.style.setProperty('--process', String(progress));
+      const last = processSteps.length - 1;
+      processSteps.forEach((step, i) => {
+        const start = last === 0 ? 0 : i / last;
+        const next = last === 0 ? 1 : (i + 1) / last;
+        const active = progress >= start - 0.001;
+        step.classList.toggle('is-active', active);
+        step.classList.toggle('is-current', active && (i === last || progress < next));
+      });
+    };
+
+    if (process && processSteps?.length) {
+      const mm = gsap.matchMedia();
+      mm.add('(min-width: 900px)', () => {
+        ScrollTrigger.create({
+          trigger: process,
+          start: 'top 22%',
+          end: '+=130%',
+          pin: true,
+          pinSpacing: true,
+          scrub: 0.45,
+          onUpdate: (self) => setProcess(self.progress),
+        });
+        return () => setProcess(0);
+      });
+      mm.add('(max-width: 899px)', () => {
+        ScrollTrigger.create({
+          trigger: process,
+          start: 'top 72%',
+          end: 'bottom 38%',
+          scrub: 0.35,
+          onUpdate: (self) => setProcess(self.progress),
+        });
+        return () => setProcess(0);
+      });
+    }
+  } else {
+    document.querySelector<HTMLElement>('[data-process]')?.style.setProperty('--process', '1');
+    document.querySelectorAll('[data-process-step]').forEach((step) => {
+      step.classList.add('is-active');
+    });
   }
 
-  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
-  const status = document.querySelector<HTMLElement>('[data-form-status]');
+  const form = document.querySelectorAll<HTMLFormElement>('[data-contact-form]');
 
-  form?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const data = new FormData(form);
-    status?.classList.remove('hidden');
-    if (status) status.textContent = 'Enviando…';
+  form.forEach((formEl) => {
+    formEl.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const status = formEl.querySelector<HTMLElement>('[data-form-status]');
+      status?.classList.remove('hidden');
+      if (status) status.textContent = 'Enviando…';
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        body: data,
-      });
-      const json = (await response.json()) as { ok?: boolean; href?: string; message?: string };
-      if (json.href) {
-        window.location.href = json.href;
-        return;
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          body: new FormData(formEl),
+        });
+        const json = (await response.json()) as { ok?: boolean; href?: string; message?: string };
+        if (json.href) {
+          window.location.href = json.href;
+          return;
+        }
+        if (status) status.textContent = json.message ?? 'Consulta enviada. Te llamamos.';
+        if (json.ok !== false) formEl.reset();
+      } catch {
+        if (status) status.textContent = 'No se pudo enviar. Usa WhatsApp o llama.';
       }
-      if (status) status.textContent = json.message ?? 'Consulta enviada. Te llamamos.';
-      form.reset();
-    } catch {
-      if (status) status.textContent = 'No se pudo enviar. Usa WhatsApp o llama.';
-    }
+    });
   });
 </script>

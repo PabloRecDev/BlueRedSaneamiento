@@ -1,18 +1,37 @@
 ---
 interface Props {
   compact?: boolean;
+  plate?: boolean;
   tone?: 'light' | 'dark';
 }
 
-const { compact = false } = Astro.props;
+const { compact = false, plate = false, tone = 'light' } = Astro.props;
+const dark = tone === 'dark' && !plate;
 ---
 
-<a href="/" class="inline-flex shrink-0 items-center" aria-label="Blue Red Saneamientos">
-  <img
-    src="/logo-bluered.png"
-    alt="Blue Red, líderes en saneamiento"
-    width="1024"
-    height="230"
-    class:list={[compact ? 'h-7' : 'h-9 sm:h-10', 'w-auto']}
-  />
+<a
+  href="/"
+  class:list={['site-logo', dark && 'site-logo--dark', plate && 'site-logo--plate']}
+  aria-label="Blue Red Saneamientos"
+>
+  {
+    dark ? (
+      <>
+        <img src="/logo-mark.png" alt="" width="230" height="230" />
+        <span class="site-logo-word">
+          <span>BLUE</span>
+          <span class="site-logo-red">RED</span>
+          <small>Líderes en saneamiento</small>
+        </span>
+      </>
+    ) : (
+      <img
+        src="/logo-bluered.png"
+        alt="Blue Red, líderes en saneamiento"
+        width="1024"
+        height="230"
+        class:list={[!plate && (compact ? 'h-7' : 'h-9 sm:h-10'), 'w-auto']}
+      />
+    )
+  }
 </a>

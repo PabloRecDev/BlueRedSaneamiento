@@ -1,0 +1,75 @@
+---
+interface Props {
+  id: 'inspect' | 'study' | 'quote' | 'finance';
+}
+
+const { id } = Astro.props;
+---
+
+{
+  id === 'inspect' ? (
+    <svg class="process-art" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+      <ellipse cx="60" cy="91" rx="34" ry="5.5" fill="#093c5f" opacity="0.12"></ellipse>
+      <path d="M18 58 60 32l42 26v8H18v-8Z" fill="#d7e3eb"></path>
+      <path d="M18 66v22h84V66H18Z" fill="#093c5f"></path>
+      <path d="M18 58 60 32l42 26H18Z" fill="#e8eef2"></path>
+      <path d="M26 50 60 29l34 21" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"></path>
+      <rect x="52" y="72" width="16" height="16" rx="1.5" fill="#e62645"></rect>
+      <rect x="28" y="72" width="14" height="10" rx="1.2" fill="#d4e5ee"></rect>
+      <rect x="78" y="72" width="14" height="10" rx="1.2" fill="#d4e5ee"></rect>
+      <path d="M86 54c10 6 16 16 16 26" stroke="#093c5f" stroke-width="3.2" stroke-linecap="round"></path>
+      <circle cx="104" cy="82" r="9" fill="#093c5f"></circle>
+      <circle cx="104" cy="82" r="5.4" fill="#d4e5ee"></circle>
+      <circle cx="104" cy="82" r="2.4" fill="#e62645"></circle>
+      <circle cx="102.6" cy="80.6" r="0.9" fill="#fff"></circle>
+    </svg>
+  ) : id === 'study' ? (
+    <svg class="process-art" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+      <ellipse cx="62" cy="91" rx="34" ry="5.5" fill="#093c5f" opacity="0.12"></ellipse>
+      <path d="M22 78 58 62l40 16-36 16Z" fill="#dfe7ed"></path>
+      <path d="M98 78v7L62 101v-7Z" fill="#b7c4ce"></path>
+      <path d="M22 78v7l36 16v-7Z" fill="#c9d4dc"></path>
+      <path d="M32 52 86 38v22L32 74Z" fill="#093c5f"></path>
+      <path d="M32 52 86 38v6L32 58Z" fill="#1b5a82"></path>
+      <ellipse cx="86" cy="49" rx="7" ry="11" fill="#0e4d72"></ellipse>
+      <ellipse cx="86" cy="49" rx="3.6" ry="6.4" fill="#071820"></ellipse>
+      <rect x="70" y="18" width="28" height="36" rx="3" fill="#fff" stroke="#093c5f" stroke-width="1.6"></rect>
+      <path d="M76 28h16M76 34h16M76 40h11" stroke="#093c5f" stroke-width="1.5" stroke-linecap="round"></path>
+      <circle cx="92" cy="48" r="7" fill="#e62645"></circle>
+      <path d="M89 48.2 91.1 50.4 95.2 45.8" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  ) : id === 'quote' ? (
+    <svg class="process-art" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+      <ellipse cx="60" cy="91" rx="34" ry="5.5" fill="#093c5f" opacity="0.12"></ellipse>
+      <rect x="28" y="16" width="52" height="68" rx="4" fill="#fff" stroke="#093c5f" stroke-width="1.7"></rect>
+      <rect x="28" y="16" width="52" height="14" rx="4" fill="#093c5f"></rect>
+      <rect x="28" y="24" width="52" height="6" fill="#093c5f"></rect>
+      <path d="M38 42h32M38 50h32M38 58h22" stroke="#093c5f" stroke-width="1.6" stroke-linecap="round" opacity="0.55"></path>
+      <rect x="38" y="66" width="24" height="8" rx="1.5" fill="#e62645"></rect>
+      <circle cx="86" cy="70" r="16" fill="#093c5f"></circle>
+      <path
+        d="M86 62.2v15.6M80.8 66.2c1.1-1.5 2.9-2.3 5.2-2.3 3.4 0 5.5 1.6 5.5 3.9 0 2.1-1.5 3.3-4.6 3.9l-2.2.4c-3.3.6-4.8 1.9-4.8 4.1 0 2.5 2.2 4.2 5.8 4.2 2.6 0 4.6-.9 5.8-2.6"
+        stroke="#fff"
+        stroke-width="1.7"
+        stroke-linecap="round"
+      ></path>
+    </svg>
+  ) : (
+    <svg class="process-art" viewBox="0 0 120 100" fill="none" aria-hidden="true">
+      <ellipse cx="62" cy="91" rx="34" ry="5.5" fill="#093c5f" opacity="0.12"></ellipse>
+      <rect x="22" y="28" width="52" height="42" rx="4" fill="#fff" stroke="#093c5f" stroke-width="1.7"></rect>
+      <rect x="22" y="28" width="52" height="12" rx="4" fill="#093c5f"></rect>
+      <rect x="22" y="36" width="52" height="4" fill="#093c5f"></rect>
+      <rect x="30" y="46" width="10" height="8" rx="1.2" fill="#d4e5ee"></rect>
+      <rect x="43" y="46" width="10" height="8" rx="1.2" fill="#e62645"></rect>
+      <rect x="56" y="46" width="10" height="8" rx="1.2" fill="#d4e5ee"></rect>
+      <rect x="30" y="57" width="10" height="8" rx="1.2" fill="#d4e5ee"></rect>
+      <rect x="43" y="57" width="10" height="8" rx="1.2" fill="#d4e5ee"></rect>
+      <rect x="56" y="57" width="10" height="8" rx="1.2" fill="#d4e5ee"></rect>
+      <circle cx="88" cy="64" r="18" fill="#093c5f"></circle>
+      <circle cx="88" cy="64" r="13.5" fill="#1b5a82"></circle>
+      <circle cx="88" cy="64" r="9" fill="#e62645"></circle>
+      <path d="M88 58.5v11M83.6 61.4c.8-1.1 2-1.7 3.7-1.7 2.3 0 3.8 1.1 3.8 2.7 0 1.5-1.1 2.3-3.3 2.7l-1.5.3c-2.3.4-3.3 1.3-3.3 2.8 0 1.7 1.6 2.9 4.1 2.9 1.8 0 3.2-.6 4.1-1.8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path>
+    </svg>
+  )
+}

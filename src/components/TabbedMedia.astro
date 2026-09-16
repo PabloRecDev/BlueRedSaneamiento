@@ -1,0 +1,104 @@
+---
+type Tab = {
+  id: string;
+  label: string;
+  title: string;
+  text: string;
+  image: string;
+  badge?: string;
+  icon?: string;
+};
+
+interface Props {
+  kicker: string;
+  title: string;
+  lead?: string;
+  tabs: Tab[];
+}
+
+const { kicker, title, lead, tabs } = Astro.props;
+const defaultIcon =
+  'M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z';
+---
+
+{
+  tabs.length > 0 && (
+    <div class="about-values" data-tabbed-media>
+      <div class="about-values-head" data-reveal>
+        <p class="about-values-kicker">{kicker}</p>
+        <h2 class="section-title">{title}</h2>
+        {lead && <p class="section-lead">{lead}</p>}
+      </div>
+
+      <div class="about-values-tabs" role="tablist" aria-label={title}>
+        {tabs.map((tab, i) => (
+          <button
+            type="button"
+            class:list={['about-values-tab', i === 0 && 'is-active']}
+            id={`method-tab-${tab.id}`}
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+            aria-controls={`method-panel-${tab.id}`}
+            data-about-tab={tab.id}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d={tab.icon ?? defaultIcon}></path>
+            </svg>
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {tabs.map((tab, i) => (
+        <div
+          class:list={['about-values-panel', 'is-split', i === 0 && 'is-active']}
+          id={`method-panel-${tab.id}`}
+          role="tabpanel"
+          aria-labelledby={`method-tab-${tab.id}`}
+          data-about-panel={tab.id}
+          hidden={i !== 0}
+        >
+          <div class="about-values-copy">
+            <h3>
+              <span class="about-values-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={tab.icon ?? defaultIcon}></path>
+                </svg>
+              </span>
+              {tab.title}
+            </h3>
+            <p>{tab.text}</p>
+          </div>
+          <figure class="about-values-media">
+            <img src={tab.image} alt={tab.title} width="1200" height="800" />
+            {tab.badge && <figcaption>{tab.badge}</figcaption>}
+          </figure>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tabbed-media]').forEach((root) => {
+    const tabs = root.querySelectorAll<HTMLButtonElement>('[data-about-tab]');
+    const panels = root.querySelectorAll<HTMLElement>('[data-about-panel]');
+
+    const activate = (id: string) => {
+      tabs.forEach((tab) => {
+        const on = tab.dataset.aboutTab === id;
+        tab.classList.toggle('is-active', on);
+        tab.setAttribute('aria-selected', String(on));
+      });
+      panels.forEach((panel) => {
+        const on = panel.dataset.aboutPanel === id;
+        panel.classList.toggle('is-active', on);
+        panel.hidden = !on;
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => activate(tab.dataset.aboutTab ?? ''));
+    });
+  });
+</script>

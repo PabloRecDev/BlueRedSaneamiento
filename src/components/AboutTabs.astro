@@ -1,0 +1,187 @@
+---
+import { reviews } from '../lib/site';
+
+const byName = Object.fromEntries(reviews.map((review) => [review.name, review]));
+
+const tabs = [
+  {
+    id: 'reparacion',
+    label: 'Reparación de tuberías',
+    icon: 'M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z',
+    title: 'Reparación de tuberías',
+    text: 'Rehabilitamos bajantes y redes sin abrir zanja: BR Spray, manga continua y packers. El resultado es una tubería interior continua y estanca, con el menor destrozo para la vivienda o la comunidad.',
+    principles: [
+      'Actuación sin obra innecesaria',
+      'Menor impacto en casas y comunidades',
+      'Tubería interior continua y estanca',
+      'Técnicos propios, no un call center',
+    ],
+    review: byName['Almudena Aguirre'],
+  },
+  {
+    id: 'limpieza',
+    label: 'Limpieza de tuberías',
+    icon: 'M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5',
+    title: 'Limpieza de tuberías',
+    text: 'Limpieza a presión, succión y fresado para quitar raíces, hormigón y restos de obra. Recuperamos la sección del tubo sin sustituirlo cuando se puede evitar.',
+    principles: [
+      'Flota propia con succión y alta presión',
+      'Fresado de 50 mm a 250 mm',
+      'Eliminación de raíces e incrustaciones',
+      'Informe tras el servicio',
+    ],
+    review: byName['Lea Duarte'],
+  },
+  {
+    id: 'desatrancos',
+    label: 'Desatrancos',
+    icon: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+    title: 'Desatrancos',
+    text: 'Urgencias 24 horas en Madrid y el sur metropolitano. Camiones preparados para atascos, humedades y reflujos, con salida el mismo día.',
+    principles: [
+      'Servicio 24 horas / 365 días',
+      'Salida el mismo día',
+      'Comunidades, viviendas y locales',
+      'Técnico en el punto, no solo aviso',
+    ],
+    review: byName['Jano Ferreyra Valdez'],
+  },
+  {
+    id: 'acometidas',
+    label: 'Acometidas',
+    icon: 'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21',
+    title: 'Acometidas',
+    text: 'Obras de pocería, acometidas a Canal de Isabel II, arquetas, pozos y bajantes. Cuadrilla propia y planificación para ejecutar con el menor impacto.',
+    principles: [
+      'Acometidas a Canal de Isabel II',
+      'Arquetas, pozos y bajantes',
+      'Cuadrilla propia en Madrid',
+      'Planificación y ejecución controlada',
+    ],
+    review: byName['Jose Maria Garcia'],
+  },
+] as const;
+
+function initials(name: string) {
+  return name
+    .split(' ')
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+}
+---
+
+<section class="about-values" aria-labelledby="about-home" data-about-tabs>
+  <div class="about-values-head" data-reveal>
+    <p class="about-values-kicker">Sobre nosotros</p>
+    <h2 id="about-home" class="section-title">Empresa líder en el sector</h2>
+    <p class="section-lead">
+      ¿Buscas un experto en mantenimiento y reparación de saneamiento o una empresa de desatrancos
+      en Madrid con garantías? En Blue Red Saneamientos llevamos más de 15 años en limpieza de
+      tuberías, desatrancos y reparación de averías.
+    </p>
+  </div>
+
+  <div class="about-values-tabs" role="tablist" aria-label="Áreas de trabajo">
+    {
+      tabs.map((tab, i) => (
+        <button
+          type="button"
+          class:list={['about-values-tab', i === 0 && 'is-active']}
+          id={`about-tab-${tab.id}`}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`about-panel-${tab.id}`}
+          data-about-tab={tab.id}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d={tab.icon}></path>
+          </svg>
+          {tab.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="about-values-body">
+    {
+      tabs.map((tab, i) => (
+        <div
+          class:list={['about-values-panel', i === 0 && 'is-active']}
+          id={`about-panel-${tab.id}`}
+          role="tabpanel"
+          aria-labelledby={`about-tab-${tab.id}`}
+          data-about-panel={tab.id}
+          hidden={i !== 0}
+        >
+          <div class="about-values-copy">
+            <h3>
+              <span class="about-values-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d={tab.icon}></path>
+                </svg>
+              </span>
+              {tab.title}
+            </h3>
+            <p>{tab.text}</p>
+            <p class="about-values-principles-label">Cómo lo hacemos:</p>
+            <ul class="about-values-principles">
+              {tab.principles.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            {
+              tab.review && (
+                <blockquote class="about-values-quote">
+                  <div class="about-values-person">
+                    <span aria-hidden="true">{initials(tab.review.name)}</span>
+                    <cite>
+                      <strong>{tab.review.name}</strong>
+                      <em>Reseña de Google</em>
+                    </cite>
+                  </div>
+                  <p>“{tab.review.quote}”</p>
+                </blockquote>
+              )
+            }
+          </div>
+        </div>
+      ))
+    }
+    <figure class="about-values-media">
+      <img
+        src="/2026/05/Bluered3.jpg"
+        alt="Unidad de Blue Red para trabajos sin obra"
+        width="1200"
+        height="800"
+      />
+      <figcaption>Sin obra</figcaption>
+    </figure>
+  </div>
+
+  <a href="/quienes-somos" class="btn btn-outline about-values-more">Quiénes somos</a>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-about-tabs]');
+  const tabs = root?.querySelectorAll<HTMLButtonElement>('[data-about-tab]');
+  const panels = root?.querySelectorAll<HTMLElement>('[data-about-panel]');
+
+  const activate = (id: string) => {
+    tabs?.forEach((tab) => {
+      const on = tab.dataset.aboutTab === id;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', String(on));
+    });
+    panels?.forEach((panel) => {
+      const on = panel.dataset.aboutPanel === id;
+      panel.classList.toggle('is-active', on);
+      panel.hidden = !on;
+    });
+  };
+
+  tabs?.forEach((tab) => {
+    tab.addEventListener('click', () => activate(tab.dataset.aboutTab ?? ''));
+  });
+</script>

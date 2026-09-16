@@ -2,18 +2,9 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CTABanner from '../../components/CTABanner.astro';
-import ServiceArt from '../../components/ServiceArt.astro';
+import TabbedMedia from '../../components/TabbedMedia.astro';
 import { site, telHref } from '../../lib/site';
-
-const images: Record<string, string> = {
-  'rehabilitacion-sin-obra': '/2023/05/packers-copia.webp',
-  desatrancos: '/2026/05/wc.jpg',
-  'inspeccion-tv': '/2026/05/Bluered1.jpg',
-  'localizacion-redes-ocultas': '/2023/05/localizacion-redes-ocultas.webp',
-  'fresado-tuberias': '/2023/05/sistema-fresado-tuberias-cuadrada.webp',
-  'valvulas-antiretorno': '/2023/05/valvula-anti-retorno.webp',
-  poceria: '/2023/05/obras-poceria-en-madrid-cuadrada.webp',
-};
+import { serviceFallback, serviceIcons, serviceImages } from '../../lib/services';
 
 export async function getStaticPaths() {
   const services = await getCollection('servicios');
@@ -26,10 +17,21 @@ export async function getStaticPaths() {
 const { service } = Astro.props;
 const { Content } = await render(service);
 const all = (await getCollection('servicios')).sort((a, b) => a.data.order - b.data.order);
-const hero = images[service.id] ?? '/2026/05/Bluered3.jpg';
+const hero = serviceImages[service.id] ?? serviceFallback;
 const systems = service.data.systems ?? [];
 const faq = service.data.faq ?? [];
 const systemsTitle = service.data.systemsTitle ?? 'Cómo lo hacemos';
+const icon = serviceIcons[service.id];
+
+const methodTabs = systems.map((item, i) => ({
+  id: `${service.id}-${i}`,
+  label: item.kicker,
+  title: item.title,
+  text: item.text,
+  image: item.image,
+  badge: item.kicker,
+  icon,
+}));
 
 const faqJsonLd =
   faq.length > 0
@@ -75,61 +77,44 @@ const cta =
                   title: 'Poceros en Madrid, 24 horas',
                   text: 'Zanja, arquetas, bajantes y acometidas a Canal de Isabel II. Cuadrilla propia y presupuesto claro.',
                 }
-      : {
-          title: 'Pide presupuesto sin compromiso',
-          text: 'Rehabilitación de tuberías sin obra, desatrancos en Madrid y pocería. Técnicos propios, 24 horas.',
-        };
+              : {
+                  title: 'Pide presupuesto sin compromiso',
+                  text: 'Rehabilitación de tuberías sin obra, desatrancos en Madrid y pocería. Técnicos propios, 24 horas.',
+                };
 ---
 
 <BaseLayout title={service.data.title} description={service.data.description}>
   {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
-  <article>
-    <section class="page-wrap pt-14 pb-10 sm:pt-16">
-      <p class="section-kicker">{service.data.eyebrow}</p>
-      <h1 class="section-title max-w-4xl">{service.data.title}</h1>
-      <p class="section-lead mt-5 max-w-3xl">{service.data.description}</p>
-    </section>
-
+  <article class="svc-page">
     <section class="bg-white">
       <div class="page-wrap py-16 sm:py-20">
-        <div class="about-split">
-          <div class="about-photo" data-reveal>
-            <img
-              src={hero}
-              alt={service.data.title}
-              width="1200"
-              height="800"
-            />
+        <div class="about-values-head" data-reveal>
+          <p class="about-values-kicker">{service.data.eyebrow}</p>
+          <h1 class="section-title">{service.data.title}</h1>
+          <p class="section-lead">{service.data.description}</p>
+          <div class="svc-actions">
+            <a href={telHref} class="btn btn-primary">Llamar {site.phoneDisplay}</a>
+            <a href="/contacto" class="btn btn-outline">Pedir inspección</a>
           </div>
+        </div>
+
+        <div class="about-values-body svc-intro">
           <div class="prose-br" data-reveal>
             <Content />
           </div>
+          <figure class="about-values-media" data-reveal>
+            <img src={hero} alt={service.data.title} width="1200" height="800" />
+            <figcaption>{service.data.impact}</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
     {
-      systems.length > 0 && (
-        <section class="system-band">
+      methodTabs.length > 0 && (
+        <section class="svc-method">
           <div class="page-wrap py-16 sm:py-20">
-            <div class="mb-10 max-w-2xl" data-reveal>
-              <p class="section-kicker">Método</p>
-              <h2 class="section-title">{systemsTitle}</h2>
-            </div>
-            <div class="system-grid">
-              {systems.map((item) => (
-                <article class="system-card" data-reveal>
-                  <div class="system-card-media">
-                    <img src={item.image} alt={item.title} width="800" height="500" />
-                    <span class="system-card-kicker">{item.kicker}</span>
-                  </div>
-                  <div class="system-card-copy">
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <TabbedMedia kicker="Método" title={systemsTitle} tabs={methodTabs} />
           </div>
         </section>
       )
@@ -141,13 +126,13 @@ const cta =
           <div class="page-wrap py-16 sm:py-20">
             <div class="faq-split">
               <div class="faq-intro" data-reveal>
-                <p class="section-kicker">Dudas</p>
+                <p class="about-values-kicker">Dudas</p>
                 <h2 class="section-title">Preguntas frecuentes</h2>
                 <p class="section-lead">
                   Lo que más nos preguntan sobre {service.data.title.toLowerCase()}. Si no está aquí,
                   llama y te lo aclaramos.
                 </p>
-                <a href={telHref} class="faq-call">
+                <a href={telHref} class="btn btn-primary mt-5">
                   Llamar {site.phoneDisplay}
                 </a>
               </div>
@@ -172,24 +157,29 @@ const cta =
     }
 
     <section class="service-more-band">
-      <div class="page-wrap py-14 sm:py-16">
+      <div class="page-wrap py-16 sm:py-20">
         <div class="mb-8 flex flex-wrap items-end justify-between gap-3" data-reveal>
           <div>
-            <p class="section-kicker">También hacemos</p>
+            <p class="about-values-kicker">También hacemos</p>
             <h2 class="section-title">Otros servicios</h2>
           </div>
-          <a href="/servicios" class="service-more-all">Ver todos</a>
+          <a href="/servicios" class="btn btn-outline">Ver todos</a>
         </div>
-        <div class="service-more">
+        <div class="svc-more">
           {
             all
               .filter((item) => item.id !== service.id)
               .map((item) => (
-                <a href={`/servicios/${item.id}`} class="service-more-item" data-reveal>
-                  <span class="service-more-art">
-                    <ServiceArt id={item.id} />
+                <a href={`/servicios/${item.id}`} class="svc-more-card" data-reveal>
+                  <span class="svc-more-media">
+                    <img
+                      src={serviceImages[item.id] ?? serviceFallback}
+                      alt=""
+                      width="640"
+                      height="400"
+                    />
                   </span>
-                  <span>
+                  <span class="svc-more-copy">
                     <p>{item.data.eyebrow}</p>
                     <strong>{item.data.title}</strong>
                   </span>

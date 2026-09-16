@@ -40,24 +40,46 @@ export function whatsappHref(text?: string) {
 
 export const reviews = [
   {
-    quote: 'Muy buena experiencia. Realizaron los trabajos en mi comunidad y todo fue genial.',
-    source: 'Google',
-    stars: 5,
-  },
-  {
+    name: 'Jose Maria Garcia',
     quote:
-      'En mi comunidad les llamaron para el desatasco de una bajante y el vaciado de un foso de ascensor. Vinieron rápido y lo solucionaron en el tiempo indicado. Bastante contentos con los trabajos y el trato del personal.',
+      'El personal muy profesional el técnico impecable en su trabajo ojalá todas las empresas fueran iguales. Nos iría mejor.',
     source: 'Google',
     stars: 5,
   },
   {
+    name: 'Lea Duarte',
+    quote: 'Han tenido las tecnicas más adecuadas para la solucion de las continuas humedades que teníamos',
+    source: 'Google',
+    stars: 5,
+  },
+  {
+    name: 'Eros Aguilar Ferrer',
+    quote: 'Me los recomendaron para un atasco inundado y lo arreglaron todo',
+    source: 'Google',
+    stars: 5,
+  },
+  {
+    name: 'Almudena Aguirre',
+    quote: 'Solucionaron un problema de la bajante de la comunidad y sin provocar ninguna molestia.',
+    source: 'Google',
+    stars: 5,
+  },
+  {
+    name: 'Jano Ferreyra Valdez',
     quote:
-      'Han trabajado en mi casa y he quedado encantado. Muy profesionales y limpios. Evitaron una obra mayor con sus técnicas de trabajo. Les recomendaré siempre que pueda.',
+      'La mejor empresa para desatascos, desde que llamamos y resolvieron todo en una mañana estaba hecho.',
     source: 'Google',
     stars: 5,
   },
   {
-    quote: 'Colaboradores excelentes, eficaces, rápidos y limpios. Los recomiendo siempre para trabajos de saneamiento.',
+    name: 'Consuelo Fuentes',
+    quote: 'Por una recomentación, empecé a trabajar con ellos y ha sido una gran elección',
+    source: 'Google',
+    stars: 5,
+  },
+  {
+    name: 'Larissa Diez',
+    quote: 'Empresa excelente para trabajos de desatrancos en Madrid',
     source: 'Google',
     stars: 5,
   },
