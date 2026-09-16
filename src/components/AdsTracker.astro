@@ -1,0 +1,62 @@
+---
+import { adsEnabled, adsId, adsLabels } from '../lib/ads';
+---
+
+{
+  adsEnabled && (
+    <script is:inline define:vars={{ adsId, adsLabels }}>
+      const toE164 = (value) => {
+        const digits = String(value ?? '').replace(/\D/g, '');
+        if (!digits) return undefined;
+        if (digits.startsWith('34')) return `+${digits}`;
+        if (digits.startsWith('9') || digits.startsWith('6') || digits.startsWith('7')) {
+          return `+34${digits}`;
+        }
+        return `+${digits}`;
+      };
+
+      const send = (name, params) => {
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('event', name, params);
+      };
+
+      const conversion = (label, extra) => {
+        if (!label) return;
+        send('conversion', { send_to: `${adsId}/${label}`, ...extra });
+      };
+
+      window.brTrack = {
+        lead(payload) {
+          const email = String(payload?.email ?? '').trim();
+          const phone = toE164(payload?.phone);
+          if (email || phone) {
+            window.gtag('set', 'user_data', {
+              ...(email ? { email } : {}),
+              ...(phone ? { phone_number: phone } : {}),
+            });
+          }
+          send('generate_lead', { method: 'form' });
+          conversion(adsLabels.lead);
+        },
+        phone() {
+          send('contact', { method: 'phone' });
+          conversion(adsLabels.phone);
+        },
+        whatsapp() {
+          send('contact', { method: 'whatsapp' });
+          conversion(adsLabels.whatsapp);
+        },
+      };
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const link = target.closest('a');
+        if (!(link instanceof HTMLAnchorElement)) return;
+        const href = link.href;
+        if (href.startsWith('tel:')) window.brTrack.phone();
+        else if (/wa\.me|whatsapp/i.test(href)) window.brTrack.whatsapp();
+      });
+    </script>
+  )
+}

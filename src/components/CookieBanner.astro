@@ -1,0 +1,63 @@
+---
+import { adsEnabled } from '../lib/ads';
+---
+
+{
+  adsEnabled && (
+    <aside class="cookie-banner" data-cookie-banner hidden>
+      <div class="page-wrap cookie-banner-inner">
+        <p>
+          Usamos cookies de Google Ads para medir llamadas, WhatsApp y formularios. Puedes
+          rechazarlas; las imprescindibles siguen activas.{' '}
+          <a href="/cookies">Más información</a>
+        </p>
+        <div class="cookie-banner-actions">
+          <button type="button" class="btn btn-outline" data-consent="denied">
+            Rechazar
+          </button>
+          <button type="button" class="btn btn-primary" data-consent="granted">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </aside>
+  )
+}
+
+{
+  adsEnabled && (
+    <script is:inline>
+      const KEY = 'br-consent';
+      const banner = document.querySelector('[data-cookie-banner]');
+      const apply = (value) => {
+        try {
+          localStorage.setItem(KEY, value);
+        } catch {
+          /* private mode */
+        }
+        const granted = value === 'granted';
+        if (typeof window.gtag === 'function') {
+          window.gtag('consent', 'update', {
+            ad_storage: granted ? 'granted' : 'denied',
+            ad_user_data: granted ? 'granted' : 'denied',
+            ad_personalization: granted ? 'granted' : 'denied',
+            analytics_storage: granted ? 'granted' : 'denied',
+          });
+        }
+        if (banner instanceof HTMLElement) banner.hidden = true;
+      };
+
+      try {
+        if (!localStorage.getItem(KEY) && banner instanceof HTMLElement) {
+          banner.hidden = false;
+        }
+      } catch {
+        if (banner instanceof HTMLElement) banner.hidden = false;
+      }
+
+      banner?.querySelectorAll('[data-consent]').forEach((button) => {
+        button.addEventListener('click', () => apply(button.getAttribute('data-consent') ?? 'denied'));
+      });
+    </script>
+  )
+}

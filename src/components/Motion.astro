@@ -123,7 +123,19 @@
           method: 'POST',
           body: new FormData(formEl),
         });
-        const json = (await response.json()) as { ok?: boolean; href?: string; message?: string };
+        const json = (await response.json()) as {
+          ok?: boolean;
+          href?: string;
+          message?: string;
+          ignored?: boolean;
+        };
+        if (json.ok !== false && !json.ignored) {
+          const payload = new FormData(formEl);
+          window.brTrack?.lead({
+            email: String(payload.get('email') ?? ''),
+            phone: String(payload.get('phone') ?? ''),
+          });
+        }
         if (json.href) {
           window.location.href = json.href;
           return;

@@ -6,7 +6,7 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   const form = await request.formData();
   if (String(form.get('company') ?? '')) {
-    return Response.json({ ok: true, message: 'Parte recibido.' });
+    return Response.json({ ok: true, ignored: true, message: 'Parte recibido.' });
   }
 
   const name = String(form.get('name') ?? '').trim();
