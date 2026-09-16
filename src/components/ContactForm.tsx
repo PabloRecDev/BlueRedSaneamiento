@@ -93,14 +93,14 @@ export default function ContactForm({
           dark ? 'text-white/65' : 'text-muted-foreground',
         )}
       >
-        <Checkbox name="privacy" required className={dark ? 'accent-white' : undefined} />
+        <Checkbox name="privacy" required className={dark ? 'accent-white' : 'accent-[#093c5f]'} />
         <span>
           Acepto la{' '}
           <a
             href="/privacidad"
             className={cn(
               'underline underline-offset-2',
-              dark ? 'text-white hover:text-white' : 'hover:text-primary',
+              dark ? 'text-white hover:text-white' : 'hover:text-[#093c5f]',
             )}
           >
             política de privacidad
@@ -115,13 +115,13 @@ export default function ContactForm({
         size="lg"
         className={cn(
           'w-full',
-          hero && 'bg-[#093c5f] text-white hover:bg-[#072f4a]',
+          !dark && 'bg-[#093c5f] text-white hover:bg-[#072f4a]',
           dark && 'rounded-full border-white/40 hover:bg-white/90',
         )}
       >
         {hero ? 'Pedir inspección' : 'Enviar mensaje'}
       </Button>
-      <p data-form-status className={cn('hidden text-sm font-medium', dark ? 'text-white' : 'text-primary')}></p>
+      <p data-form-status className={cn('hidden text-sm font-medium', dark ? 'text-white' : 'text-[#093c5f]')}></p>
     </form>
   );
 }

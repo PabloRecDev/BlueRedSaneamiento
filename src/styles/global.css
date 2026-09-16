@@ -1255,6 +1255,17 @@
     color: rgb(28 40 48 / 62%);
   }
 
+  .contact-page {
+    --color-primary: #093c5f;
+    --color-ring: #093c5f;
+  }
+
+  .contact-page h1,
+  .contact-page h2,
+  .contact-page .font-semibold {
+    color: #093c5f;
+  }
+
   .contact-layout {
     display: grid;
     gap: 1.15rem;
