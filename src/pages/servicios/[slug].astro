@@ -87,7 +87,7 @@ const cta =
   {faqJsonLd && <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />}
   <article class="svc-page">
     <section class="bg-white">
-      <div class="page-wrap py-16 sm:py-20">
+      <div class="page-wrap py-10 sm:py-20">
         <div class="about-values-head" data-reveal>
           <p class="about-values-kicker">{service.data.eyebrow}</p>
           <h1 class="section-title">{service.data.title}</h1>
@@ -113,7 +113,7 @@ const cta =
     {
       methodTabs.length > 0 && (
         <section class="svc-method">
-          <div class="page-wrap py-16 sm:py-20">
+          <div class="page-wrap py-10 sm:py-20">
             <TabbedMedia kicker="Método" title={systemsTitle} tabs={methodTabs} />
           </div>
         </section>
@@ -123,7 +123,7 @@ const cta =
     {
       faq.length > 0 && (
         <section class="faq-band">
-          <div class="page-wrap py-16 sm:py-20">
+          <div class="page-wrap py-10 sm:py-20">
             <div class="faq-split">
               <div class="faq-intro" data-reveal>
                 <p class="about-values-kicker">Dudas</p>
@@ -157,7 +157,7 @@ const cta =
     }
 
     <section class="service-more-band">
-      <div class="page-wrap py-16 sm:py-20">
+      <div class="page-wrap py-10 sm:py-20">
         <div class="mb-8 flex flex-wrap items-end justify-between gap-3" data-reveal>
           <div>
             <p class="about-values-kicker">También hacemos</p>
